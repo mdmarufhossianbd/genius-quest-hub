@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom';
+import Navber from '../Components/Navber/Navber';
 
 const Root = () => {
     return (
-        <div>
+        <div className='font-poppins'>
+            <Navber></Navber>
             <Outlet></Outlet>
         </div>
     );
