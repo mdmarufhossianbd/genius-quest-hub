@@ -6,7 +6,7 @@ import logo from '../../assets/images/logo.png';
 
 const Navber = () => {
 
-    const { user, logout } = useAuth();
+    const { user, logOut } = useAuth();
 
     // set dark theme
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
@@ -41,9 +41,9 @@ const Navber = () => {
         </li>
     </>
 
-    logout
+    // logout
     const handleLogout = () => {
-        logout()
+        logOut()
             .then(() => {
                 toast.success('Your account logout successfully')
             })
@@ -87,7 +87,7 @@ const Navber = () => {
                                     <li><button onClick={handleLogout}>Logout</button></li>
                                 </ul>
                             </div> :
-                            <Link to={'/login'}> <button className="px-4 py-2 text-white font-semibold bg-[#407bff] hover:bg-[#2b2b2b] rounded">Login</button> </Link>
+                            <Link to={'/signin'}> <button className="px-4 py-2 text-white font-semibold bg-[#407bff] hover:bg-[#2b2b2b] rounded">Login</button> </Link>
                     }
                 </div>
                 <label className="swap swap-rotate ml-10">

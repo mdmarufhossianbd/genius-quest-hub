@@ -3,15 +3,17 @@ import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 import useAuth from "../../Hooks/useAuth";
 import signUpImg from '../../assets/images/login-and-register.png';
+
 const Signup = () => {
     const { signUp, updateUserProfile, setReload, user } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true)
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadCaptchaEnginge(6)
@@ -58,13 +60,13 @@ const Signup = () => {
     }
 
     if(user){
-        return
+        return navigate('/')
     }
 
     return (
         <div className="max-w-7xl mx-auto mt-20">
             <Helmet><title>Signup || Genius Quest Hub</title></Helmet>
-            <div className="flex items-center">
+            <div className="flex items-center border-2 p-10 rounded-lg">
                 <div className="w-1/2">
                     <img src={signUpImg} alt="" />
                 </div>
@@ -96,7 +98,7 @@ const Signup = () => {
                         {errors.photo && <span className="text-red-400">Profile Picture is required.</span>}                        
                         <input disabled={disabled} className="hover:cursor-pointer bg-red-600 text-white py-2 rounded-lg disabled:bg-gray-500 disabled:cursor-not-allowed" type="submit" />
                     </form>
-                    <p className="text-center pt-4">Already have you an account? <Link to={'/singin'} className="font-semibold">Sign in</Link></p>                    
+                    <p className="text-center pt-4">Already have you an account? <Link to={'/signin'} className="font-semibold">Sign in</Link></p>                    
                 </div>
             </div>
             <Toaster
