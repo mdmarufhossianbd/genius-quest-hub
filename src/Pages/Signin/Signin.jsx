@@ -1,7 +1,9 @@
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from "react-simple-captcha";
 import useAuth from "../../Hooks/useAuth";
@@ -10,7 +12,8 @@ import signUpImg from "../../assets/images/login-and-register.png";
 const Signin = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [disabled, setDisabled] = useState(true)
-    const {signIn, user} = useAuth();
+    const {signIn, user, auth} = useAuth();
+    const googleProvider = new GoogleAuthProvider()
     const navigate = useNavigate();
     
     // captcha validation
@@ -34,9 +37,31 @@ const Signin = () => {
     const onSubmit = (data) => {
         signIn(data.email, data.password)
         .then(result=>{
-            console.log(result.user);
+            if(result.user){
+                toast.success('Your account login successfully.')
+            }
         })
-        .catch(err=>console.log(err.message))
+        .catch(err=>{
+            if(err){
+                toast.error('Please check your email or password.')
+            }
+        })
+    }
+
+    // google login
+
+    const handleGoogleLogin = () => {
+        signInWithPopup(auth, googleProvider)
+        .then(result=>{
+            if(result.user){
+                toast.success('Your account login successfully.')
+            }
+        })
+        .catch(err=>{
+            if(err){
+                toast.error('Please check your email or password.')
+            }
+        })
     }
 
     if(user){
@@ -62,12 +87,12 @@ const Signin = () => {
                         })} />
                         {errors.password && <span className="text-red-400">Password is required & 6 characters must be use.</span>}
                         <LoadCanvasTemplate  reloadColor="black" />
-                        <input className="p-2 rounded-md" onBlur={handleCaptchaValidate} type="text" name="captcha" ref={captchaRef} placeholder="Input valid captcha." id="" />
-                        
-                                             
-                        <input disabled={disabled} className="hover:cursor-pointer bg-red-600 text-white py-2 rounded-lg disabled:bg-gray-500 disabled:cursor-not-allowed" type="submit" />
+                        <input className="p-2 rounded-md" onBlur={handleCaptchaValidate} type="text" name="captcha" ref={captchaRef} placeholder="Input valid captcha." id="" />                                             
+                        <input disabled={disabled} className="hover:cursor-pointer bg-red-600 text-white py-2 rounded-badge disabled:bg-gray-500 disabled:cursor-not-allowed font-medium" type="submit" />
                     </form>
-                    <p className="text-center pt-4">You have not an account? <Link to={'/signup'} className="font-semibold">Sign Up</Link></p>                    
+                    <div className="divider divider-neutral w-1/2 mx-auto">Or</div>
+                    <button onClick={handleGoogleLogin} className="w-1/2 mx-auto flex items-center bg-[#2B2B2B] btn py-2 border-none text-white hover:bg-[#407BFF] rounded-badge"><FcGoogle className="text-4xl py-2 " />Sign in With Google</button>
+                    <p className="text-center pt-4">You have not an account? <Link to={'/signup'} className="font-semibold">Sign Up</Link></p>
                 </div>
                 <div className="w-1/2">
                     <img src={signUpImg} alt="" />
