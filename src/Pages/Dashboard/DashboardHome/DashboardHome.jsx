@@ -8,7 +8,6 @@ const DashboardHome = () => {
         <div className=''>
             <Helmet><title>Dashboard || Genius Quest Hub</title></Helmet>
             <h2 className='p-20 text-3xl font-bold text-center'>Hey <span className='text-[#407BFF]'>{user?.displayName}</span>, Welcome to Genius Quest Hub.</h2>
-                 
         </div>
     );
 };

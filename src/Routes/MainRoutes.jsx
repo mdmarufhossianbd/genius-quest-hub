@@ -3,9 +3,11 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Root from "../Layout/Root";
 import AddContest from "../Pages/AddContest/AddContest";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
+import ManageUser from "../Pages/Dashboard/ManageUser/ManageUser";
 import Home from "../Pages/Home/Home";
 import Signin from "../Pages/Signin/Signin";
 import Signup from "../Pages/Signup/Signup";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -32,11 +34,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <DashboardHome></DashboardHome>
+                element: <PrivateRoute><DashboardHome></DashboardHome></PrivateRoute>
             },
             {
                 path: '/dashboard/add-contest',
-                element: <AddContest></AddContest>
+                element: <PrivateRoute><AddContest></AddContest></PrivateRoute>
+            },
+            {
+                path: '/dashboard/manage-user',
+                element: <PrivateRoute><ManageUser></ManageUser></PrivateRoute>
             }
         ]
     }

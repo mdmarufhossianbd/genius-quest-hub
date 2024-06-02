@@ -31,7 +31,7 @@ const Signup = () => {
             toast.error('Enter valid Captcha')
         }
     }
-
+    // user sign up
     const onSubmit = async (data) => {
         // photo upload
         const imageFile = { image: data.photo[0] }
@@ -41,7 +41,7 @@ const Signup = () => {
             }
         })
         const photo = res.data.data.display_url;
-
+        // account create
         await signUp(data.email, data.password)
             .then(result => {
                 console.log(result.user);
@@ -54,6 +54,7 @@ const Signup = () => {
                             }
                             axiosPublic.post('/users', userInfo)
                             toast.success('Your account Create Successfully')
+                            navigate('/')
                         }
                         setReload(true)
                     })
@@ -67,7 +68,7 @@ const Signup = () => {
     }
 
     if(user){
-        return navigate('/')
+        return navigate('/', {replace : true})
     }
 
     return (

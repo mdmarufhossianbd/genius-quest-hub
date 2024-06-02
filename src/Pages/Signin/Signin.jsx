@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from "react-simple-captcha";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
@@ -13,10 +13,13 @@ import signUpImg from "../../assets/images/login-and-register.png";
 const Signin = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [disabled, setDisabled] = useState(true)
+    const axiosPublic = useAxiosPublic();
     const {signIn, user, auth} = useAuth();
     const googleProvider = new GoogleAuthProvider()
     const navigate = useNavigate();
-    const axiosPublic = useAxiosPublic();
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
+    
     
     // captcha validation
     const captchaRef = useRef(null);
@@ -40,7 +43,8 @@ const Signin = () => {
         signIn(data.email, data.password)
         .then(result=>{
             if(result.user){
-                toast.success('Your account login successfully.')
+                toast.success('Your account login successfully.');
+                navigate(from, {replace: true});
             }
         })
         .catch(err=>{
@@ -55,15 +59,15 @@ const Signin = () => {
     const handleGoogleLogin = () => {
         signInWithPopup(auth, googleProvider)
         .then(result=>{
-            console.log(result.user?.displayName);
+            // sent user info in database
             const userInfo = {
                 name: result.user?.displayName,
                 email: result.user?.email
             }
-            axiosPublic.post('/users', userInfo)
-            
+            axiosPublic.post('/users', userInfo)            
             if(result.user){                                
                 toast.success('Your account login successfully.')
+                navigate(from, {replace: true});
             }
         })
         .catch(err=>{
@@ -74,7 +78,7 @@ const Signin = () => {
     }
 
     if(user){
-        return navigate('/')
+        return navigate('/', {replace: true})
     }
 
     return (
