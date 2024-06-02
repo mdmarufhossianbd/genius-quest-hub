@@ -1,18 +1,53 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from 'react-hot-toast';
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const AddContest = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [startDate, setStartDate] = useState(new Date())
-    
-    const onSubmit = (data) => {
-        console.log(data);
+    const [startDate, setStartDate] = useState(new Date());
+    const axiosPublic = useAxiosPublic()
+
+
+    const onSubmit = async (data) => {
+        // image upload
+        const imgFile = { image: data.image[0] }
+        const res = await axiosPublic.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`, imgFile, {
+            headers: {
+                'content-Type': 'multipart/form-data'
+            }
+        });
+        // data in a object for sent databse
+        if (res.data.success) {
+            const contest = {
+                name: data.name,
+                image: res.data.data.display_url,
+                description: data.description,
+                registrationFee: parseInt(data.contest_fee),
+                prize: data.contest_prize,
+                instructions: data.instruction,
+                contestType: data.contest_type,
+                deadline: startDate,
+                participateCount: 0,
+                // TODO : creator details need to add.
+            }
+            console.log(contest);
+            // database sending data
+            const contestSet = await axiosPublic.post('/contests', contest);
+
+            if (contestSet.data) {
+                toast.success('Your contest added successfully');
+            }
+        }
+
     }
 
     return (
-        <div className="max-w-7xl mx-auto my-20 p-20 rounded-lg bg-[#D6EAFF] text-[#0F0F0F]">
+        <div className="w-full mx-auto my-20 p-20 rounded-lg bg-[#D6EAFF] text-[#0F0F0F]">
+            <Helmet><title>Add contest || Genius Quest Hub</title></Helmet>
             <h2 className="text-5xl font-bold text-center pb-10">Add Contest</h2>
             <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex gap-5">
@@ -35,7 +70,7 @@ const AddContest = () => {
                 <div className="flex gap-5">
                     <div className="flex flex-col w-1/2">
                         <label className="text-xl pb-1">Registration Fee</label>
-                        <input className="p-2 rounded-md" placeholder="Enter contest registration fee." type="number" {...register("contest_fee", { required: true })} id="" />
+                        <input type="number" className="p-2 rounded-md" placeholder="Enter contest registration fee."  {...register("contest_fee", { required: true })} />
                         {errors.contest_fee && <span className="text-red-400 py-1">Contest fee is required.</span>}
                     </div>
                     <div className="flex flex-col w-1/2">
@@ -67,13 +102,16 @@ const AddContest = () => {
                     </div>
                     <div className="flex flex-col w-1/2">
                         <label className="text-xl pb-1">Select Registration Last Date</label>
-                        <DatePicker className="p-2 rounded-md" required selected={startDate} onChange={(date) => setStartDate(date)} />
+                        <DatePicker className="p-2 rounded-md w-full" required selected={startDate} onChange={(date) => setStartDate(date)} />
                     </div>
                 </div>
                 <div className="flex justify-end">
                     <input className="bg-[#407bff] text-white rounded-lg p-2 font-semibold hover:cursor-pointer hover:bg-[#2b2b2b] transition duration-300 w-[200px]" type="submit" />
                 </div>
-
+                <Toaster
+                    position="top-right"
+                    reverseOrder={false}
+                />
             </form>
         </div>
     );

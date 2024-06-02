@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import signUpImg from '../../assets/images/login-and-register.png';
 
 const Signup = () => {
@@ -14,6 +15,7 @@ const Signup = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true)
     const navigate = useNavigate()
+    const axiosPublic = useAxiosPublic()
 
     useEffect(() => {
         loadCaptchaEnginge(6)
@@ -46,6 +48,11 @@ const Signup = () => {
                 updateUserProfile(data.name, photo, data.email)
                     .then(() => {
                         if (result.user) {
+                            const userInfo = {
+                                name : data.name,
+                                email : data.email
+                            }
+                            axiosPublic.post('/users', userInfo)
                             toast.success('Your account Create Successfully')
                         }
                         setReload(true)

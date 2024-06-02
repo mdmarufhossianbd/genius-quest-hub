@@ -1,28 +1,10 @@
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import useAuth from "../../Hooks/useAuth";
-import logo from '../../assets/images/logo.png';
+import useAuth from "../../../Hooks/useAuth";
+import logo from '../../../assets/images/logo.png';
 
-const Navber = () => {
-
+const DashboardNavber = () => {
     const { user, logOut } = useAuth();
-
-    // set dark theme
-    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
-    const handleToggle = e => {
-        if (e.target.checked) {
-            setTheme("dark");
-        } else {
-            setTheme("light")
-        }
-    }
-
-    useEffect(() => {
-        localStorage.setItem("theme", theme);
-        const localTheme = localStorage.getItem("theme");
-        document.querySelector("html").setAttribute("data-theme", localTheme)
-    }, [theme])
 
     // navlinks
     const navlinks = <>
@@ -34,7 +16,7 @@ const Navber = () => {
 
     const userLinks = <>
         <li>
-            <Link to={'/dashboard'}>Dashboard</Link>
+            <Link to={'/add-contest'}>Add Contest</Link>
             <Link to={'/my-applied-jobs'}>My Applied Jobs</Link>
             <Link to={'/profile'}>Profile</Link>
         </li>
@@ -89,12 +71,10 @@ const Navber = () => {
                             <Link to={'/signin'}> <button className="px-4 py-2 text-white font-semibold bg-[#407bff] hover:bg-[#2b2b2b] rounded">Login</button> </Link>
                     }
                 </div>
-                <label className="swap swap-rotate ml-10">
-                    <input type="checkbox" onChange={handleToggle} checked={theme == "light" ? false : true} className="theme-controller toggle" value="synthwave" />
-                </label>
+
             </div>
         </div>
     );
 };
 
-export default Navber;
+export default DashboardNavber;

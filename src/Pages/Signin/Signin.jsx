@@ -7,6 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from "react-simple-captcha";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import signUpImg from "../../assets/images/login-and-register.png";
 
 const Signin = () => {
@@ -15,6 +16,7 @@ const Signin = () => {
     const {signIn, user, auth} = useAuth();
     const googleProvider = new GoogleAuthProvider()
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
     
     // captcha validation
     const captchaRef = useRef(null);
@@ -53,7 +55,14 @@ const Signin = () => {
     const handleGoogleLogin = () => {
         signInWithPopup(auth, googleProvider)
         .then(result=>{
-            if(result.user){
+            console.log(result.user?.displayName);
+            const userInfo = {
+                name: result.user?.displayName,
+                email: result.user?.email
+            }
+            axiosPublic.post('/users', userInfo)
+            
+            if(result.user){                                
                 toast.success('Your account login successfully.')
             }
         })
