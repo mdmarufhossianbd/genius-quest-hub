@@ -25,7 +25,10 @@ const AddContest = () => {
         // data in a object for sent databse
         if (res.data.success) {
             const contest = {
-                creator : creator.email,
+                creator : {
+                   email: creator.email,
+                   name : creator.name
+                },                
                 name: data.name,
                 image: res.data.data.display_url,
                 description: data.description,
@@ -34,7 +37,8 @@ const AddContest = () => {
                 instructions: data.instruction,
                 contestType: data.contest_type,
                 deadline: startDate,
-                participateCount: 0,                
+                participateCount: 0,
+                status: 'pending',
             }            
             // sending data in database
             const contestSet = await axiosPublic.post('/contests', contest);

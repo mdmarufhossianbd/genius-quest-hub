@@ -6,7 +6,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useUsers = () => {
     const {user, loading} = useAuth();
     const axiosSecure = useAxiosSecure();
-    const {data : creator, isPending : usersLoading} = useQuery({
+    const {data : creator = [], isPending : usersLoading} = useQuery({
         queryKey: [user?.email, 'users'],
         enabled: !loading,
         queryFn: async () => {
