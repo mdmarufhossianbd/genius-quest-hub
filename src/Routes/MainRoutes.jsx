@@ -3,6 +3,7 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Root from "../Layout/Root";
 import AddContest from "../Pages/AddContest/AddContest";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
+import ManageContest from "../Pages/Dashboard/ManageContest/ManageContest";
 import ManageUser from "../Pages/Dashboard/ManageUser/ManageUser";
 import Home from "../Pages/Home/Home";
 import Signin from "../Pages/Signin/Signin";
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/manage-user',
                 element: <PrivateRoute><ManageUser></ManageUser></PrivateRoute>
+            },
+            {
+                path: '/dashboard/manage-contest',
+                element: <ManageContest></ManageContest>
             }
         ]
     }

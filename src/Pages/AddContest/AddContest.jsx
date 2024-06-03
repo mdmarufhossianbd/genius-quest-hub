@@ -5,13 +5,15 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useUsers from "../../Hooks/useUsers";
 
 const AddContest = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [startDate, setStartDate] = useState(new Date());
-    const axiosPublic = useAxiosPublic()
+    const axiosPublic = useAxiosPublic();
+    const [creator ] = useUsers();
 
-
+    // add contest
     const onSubmit = async (data) => {
         // image upload
         const imgFile = { image: data.image[0] }
@@ -23,6 +25,7 @@ const AddContest = () => {
         // data in a object for sent databse
         if (res.data.success) {
             const contest = {
+                creator : creator.email,
                 name: data.name,
                 image: res.data.data.display_url,
                 description: data.description,
@@ -31,11 +34,9 @@ const AddContest = () => {
                 instructions: data.instruction,
                 contestType: data.contest_type,
                 deadline: startDate,
-                participateCount: 0,
-                // TODO : creator details need to add.
-            }
-            console.log(contest);
-            // database sending data
+                participateCount: 0,                
+            }            
+            // sending data in database
             const contestSet = await axiosPublic.post('/contests', contest);
 
             if (contestSet.data) {

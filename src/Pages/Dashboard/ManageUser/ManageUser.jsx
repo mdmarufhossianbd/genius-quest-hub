@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import Swal from 'sweetalert2';
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageUser = () => {
     const axiosSecure = useAxiosSecure();
-    const { data: users = [] } = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosSecure.get('/users');
@@ -11,7 +12,45 @@ const ManageUser = () => {
         }
     })
 
-    // console.log(users);
+    // user delete
+    const handleDelete = user => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                // User delete from database
+                axiosSecure.delete(`/users/${user._id}`)
+                .then(res=>{
+                    if(res.data.deletedCount){
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                          });
+                          refetch()
+                    }
+                })
+            }
+          });
+    }
+
+    // make creator
+    const handleCreator = user =>{
+        axiosSecure.patch(`/users/creators/${user._id}`)
+        .then(res=>{            
+            if(res.data.modifiedCount > 0){
+                alert('creator makeing done')
+                refetch()
+            }
+        })
+        
+    }
 
     return (
         <div>
@@ -28,17 +67,18 @@ const ManageUser = () => {
                             <th>Action</th>
                         </tr>
                     </thead>
+                    {/* body */}
                     <tbody>
-                        {/* row 1 */}
-
                         {
                             users.map((user, index )=> <tr className="hover" key={user._id}>
                                 <th>{index+1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td>{<button>Change</button>}</td>
-                                <td><button>Block</button></td>
-                                <td><button>Delete</button></td>
+                                <td>
+                                    {user.role ? user.role : <button onClick={()=>handleCreator(user)}>Make Creator</button>}
+                                </td>
+                                <td><button >Block</button></td>
+                                <td><button onClick={()=>handleDelete(user)}>Delete</button></td>
                             </tr>)
                         }
                     </tbody>
