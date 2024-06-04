@@ -38,7 +38,7 @@ const DashboardLayout = () => {
     const creatorLinks = <>
         <li className='flex flex-col text-black'>            
             <Link className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/dashboard/add-contest'}>Add Contest</Link>
-            <Link className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/my-contest'}>My Contest</Link>
+            <Link className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/dashboard/my-contest'}>My Contest</Link>
             <Link className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/dashboard/profile'}>My Profile</Link>
         </li>
     </>

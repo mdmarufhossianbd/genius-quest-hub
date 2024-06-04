@@ -11,11 +11,13 @@ const AddContest = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [startDate, setStartDate] = useState(new Date());
     const axiosPublic = useAxiosPublic();
-    const {user} = useAuth()
+    const {user} = useAuth();
+    const [confirmAddContest, setConfirmAddContest] = useState(false)
 
     // add contest
     const onSubmit = async (data) => {
         // image upload
+        setConfirmAddContest(true)
         const imgFile = { image: data.image[0] }
         const res = await axiosPublic.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`, imgFile, {
             headers: {
@@ -24,27 +26,27 @@ const AddContest = () => {
         });
         // data in a object for sent databse
         if (res.data.success) {
-            const contest = {
-                creator : {
-                   email: user.email,
-                   name : user.name
-                },                
-                name: data.name,
-                image: res.data.data.display_url,
-                description: data.description,
-                registrationFee: parseInt(data.contest_fee),
-                prize: data.contest_prize,
-                instructions: data.instruction,
-                contestType: data.contest_type,
-                deadline: startDate,
-                participateCount: 0,
-                status: 'pending',
+            const contest = {                
+                creatorEmail : user.email,
+                creatorName : user.displayName,
+                contestName: data.name,
+                contestImage: res.data.data.display_url,
+                contestDescription: data.description,
+                contestRegistrationFee: parseInt(data.contest_fee),
+                contestPrize: data.contest_prize,
+                contestInstructions: data.instruction,
+                contestContestType: data.contest_type,
+                contestPublishDate: new Date(),
+                contestDeadline: startDate,
+                contestParticipateCount: 0,
+                contestStatus: 'pending',
             }            
             // sending data in database
             const contestSet = await axiosPublic.post('/contests', contest);
 
             if (contestSet.data) {
                 toast.success('Your contest added successfully');
+                setConfirmAddContest(false)
             }
         }
 
@@ -111,7 +113,7 @@ const AddContest = () => {
                     </div>
                 </div>
                 <div className="flex justify-end">
-                    <input className="bg-[#407bff] text-white rounded-lg p-2 font-semibold hover:cursor-pointer hover:bg-[#2b2b2b] transition duration-300 w-[200px]" type="submit" />
+                    <input className="bg-[#407bff] text-white rounded-lg p-2 font-semibold hover:cursor-pointer hover:bg-[#2b2b2b] transition duration-300 w-[200px] disabled:cursor-not-allowed" disabled={!confirmAddContest === false} type="submit" value={ confirmAddContest ? 'Submiting' : 'Submit'} />
                 </div>
                 <Toaster
                     position="top-right"

@@ -10,8 +10,7 @@ const useCreator = () => {
         queryKey: [user?.email, 'creator'],
         enabled: !loading,
         queryFn: async () => {
-            const res = await axiosSecure.get(`/users/creators/${user?.email}`)
-            console.log(res.data?.creator);
+            const res = await axiosSecure.get(`/users/creators/${user?.email}`);            
             return res.data?.creator
         }
     })

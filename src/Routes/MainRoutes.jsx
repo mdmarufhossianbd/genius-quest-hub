@@ -1,10 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
+import ContestView from "../Components/Shared/ContestView";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Root from "../Layout/Root";
 import AddContest from "../Pages/AddContest/AddContest";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import ManageContest from "../Pages/Dashboard/ManageContest/ManageContest";
 import ManageUser from "../Pages/Dashboard/ManageUser/ManageUser";
+import Mycontest from "../Pages/Dashboard/Mycontest/Mycontest";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import Home from "../Pages/Home/Home";
 import Signin from "../Pages/Signin/Signin";
@@ -40,10 +42,19 @@ const router = createBrowserRouter([
                 path: '/dashboard',
                 element: <PrivateRoute><DashboardHome></DashboardHome></PrivateRoute>
             },
+            {
+                path: '/dashboard/contest-preview/:id',
+                element: <PrivateRoute><ContestView></ContestView></PrivateRoute>,
+                loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
+            },
             // creator
             {
                 path: '/dashboard/add-contest',
                 element: <CreatorRoute><AddContest></AddContest></CreatorRoute>
+            },
+            {
+                path: '/dashboard/my-contest',
+                element: <CreatorRoute><Mycontest></Mycontest></CreatorRoute>
             },
             // admin
             {
@@ -57,7 +68,9 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/profile',
                 element: <Profile></Profile>
-            }
+            },
+            // user
+            
         ]
     }
 ]);

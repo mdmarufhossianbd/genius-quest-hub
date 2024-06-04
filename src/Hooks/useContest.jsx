@@ -3,7 +3,6 @@ import useAxiosPublic from './useAxiosPublic';
 
 const useContest = () => {
     const axiosPublic = useAxiosPublic();
-
     const {data : contests = [], isLoading, refetch} = useQuery({
         queryKey: ['contests'],
         queryFn: async () => {

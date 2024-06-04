@@ -6,7 +6,6 @@ import useContest from "../../../Hooks/useContest";
 const ManageContest = () => {
     const [contests, isLoading, refetch] = useContest();
     const axiosSecure = useAxiosSecure()
-    console.log(contests);
 
     if (isLoading) {
         return <div className="flex justify-center items-center min-h-screen">
@@ -43,14 +42,9 @@ const ManageContest = () => {
     }
 
     // contest comment
-    const handleComment = (event, contest) => {
-        console.log(contest);
-
+    const handleComment = (event, contest) => {       
         const comment = event.target.comment.value;
-        const comments = {
-            comment,
-            contest
-        }
+        const comments = {comment, contest}
         axiosSecure.post('/comments', comments)
            .then((res) => {
                 if (res.data.insertedId) {
@@ -64,16 +58,18 @@ const ManageContest = () => {
     }
 
     // publish contest
-    const handleContestPublish = contest => {
+    const handleContestPublish = contest => {        
         console.log(contest.contest._id);
         axiosSecure.patch(`/contests/${contest.contest._id}`)
         .then(res=>{
             console.log(res);
-            if(res.data.data.modifiedCount > 0){
+            if(res.data.modifiedCount > 0){
                 toast.success('This contest is publish successfully');
+                refetch()
             }
         })
     }
+
     return (
         <div>
             <h2>Total Conteste {contests.length}</h2>
@@ -82,7 +78,7 @@ const ManageContest = () => {
                 <thead>
                     <tr className="bg-[#407BFF] text-white font-semibold text-lg">
                         <th></th>
-                        <th>Name</th>
+                        <th>Contest Name</th>
                         <th>Creator</th>
                         <th>Contest Status</th>
                         <th>Comment</th>
@@ -95,16 +91,16 @@ const ManageContest = () => {
                     {
                         contests.map((contest, index) => <tr className="hover" key={contest._id}>
                             <th>{index + 1}</th>
-                            <td>{contest.name}</td>
-                            <td>{contest?.creator?.name}</td>
+                            <td>{contest.contestName}</td>
+                            <td>{contest?.creatorEmail}</td>
                             <td>
-                                {contest.status === 'pending' ? <button onClick={()=>handleContestPublish({contest})}>Confirm Publish</button> : "Publish"}
+                                {contest.contestStatus === 'pending' ? <button onClick={()=>handleContestPublish({contest})}>Confirm Publish</button> : "Publish"}
                             </td>
                             <td>
                                 <button className="" onClick={() => document.getElementById('my_modal_3').showModal()}>Comment</button>
                                 <dialog id="my_modal_3" className="modal">
                                     <div className="modal-box">
-                                        <h3 className="font-bold text-lg pb-2">{contest.name}</h3>
+                                        <h3 className="font-bold text-lg pb-2">{contest.contestName}</h3>
                                         <form  onSubmit={() => handleComment(event, { contest })} method="dialog">                                            
                                             <textarea className="w-full border rounded-md my-2 p-4" rows={5} name="comment" placeholder="Enter your comment" required></textarea>
                                             <input className="btn btn-sm hover:bg-[#407BFF] hover:text-white" type="submit" value="Comment" />
