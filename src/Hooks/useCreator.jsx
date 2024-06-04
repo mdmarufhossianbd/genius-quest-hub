@@ -6,7 +6,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useCreator = () => {
     const {user, loading} = useAuth();
     const axiosSecure = useAxiosSecure();
-    const {data : creator, isLoading} = useQuery({
+    const {data : creator, isLoading, refetch, isPending} = useQuery({
         queryKey: [user?.email, 'creator'],
         enabled: !loading,
         queryFn: async () => {
@@ -14,7 +14,7 @@ const useCreator = () => {
             return res.data?.creator
         }
     })
-    return [creator, isLoading]
+    return [creator, isLoading, refetch, isPending]
 };
 
 export default useCreator;

@@ -4,6 +4,8 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageUser = () => {
     const axiosSecure = useAxiosSecure();
+
+    // all user
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
@@ -83,6 +85,9 @@ const ManageUser = () => {
                         }
                     </tbody>
                 </table>
+                {
+                    users.length === 0 ? <p className="text-center py-10">You have not any user.</p> : ""
+                }
             </div>
         </div>
     );

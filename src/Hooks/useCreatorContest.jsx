@@ -5,7 +5,7 @@ import useAxiosPublic from './useAxiosPublic';
 const useCreatorContest = () => {
     const {user} = useAuth()
     const axiosPublic = useAxiosPublic();
-    const {data : myContests = [], isLoading}= useQuery({
+    const {data : myContests = [], isLoading, refetch}= useQuery({
         queryKey: [user.email, 'myContests'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/contests/my-contests/${user.email}`);
@@ -13,7 +13,7 @@ const useCreatorContest = () => {
             return res.data;
         }
     })
-    return [myContests, isLoading]
+    return [myContests, isLoading, refetch]
 };
 
 export default useCreatorContest;

@@ -1,4 +1,6 @@
 import toast, { Toaster } from "react-hot-toast";
+import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useContest from "../../../Hooks/useContest";
@@ -59,10 +61,8 @@ const ManageContest = () => {
 
     // publish contest
     const handleContestPublish = contest => {        
-        console.log(contest.contest._id);
         axiosSecure.patch(`/contests/${contest.contest._id}`)
-        .then(res=>{
-            console.log(res);
+        .then(res=>{            
             if(res.data.modifiedCount > 0){
                 toast.success('This contest is publish successfully');
                 refetch()
@@ -109,8 +109,10 @@ const ManageContest = () => {
                                     </div>
                                 </dialog>
                             </td>
-                            <td><button >View</button></td>
-                            <td><button onClick={() => handleDelete(contest)}>Delete</button></td>
+                            <td>
+                            <Link to={`/dashboard/contest-preview/${contest._id}`}><button>View</button></Link>
+                            </td>
+                            <td><button onClick={() => handleDelete(contest)}><FaTrashAlt className="text-red-500 ml-5" /></button></td>
                         </tr>)
                     }
                 </tbody>
