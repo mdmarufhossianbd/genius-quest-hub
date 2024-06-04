@@ -5,9 +5,11 @@ import AddContest from "../Pages/AddContest/AddContest";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import ManageContest from "../Pages/Dashboard/ManageContest/ManageContest";
 import ManageUser from "../Pages/Dashboard/ManageUser/ManageUser";
+import Profile from "../Pages/Dashboard/Profile/Profile";
 import Home from "../Pages/Home/Home";
 import Signin from "../Pages/Signin/Signin";
 import Signup from "../Pages/Signup/Signup";
+import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -43,11 +45,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/manage-user',
-                element: <PrivateRoute><ManageUser></ManageUser></PrivateRoute>
+                element: <AdminRoute><ManageUser></ManageUser></AdminRoute>
             },
             {
                 path: '/dashboard/manage-contest',
-                element: <ManageContest></ManageContest>
+                element: <AdminRoute><ManageContest></ManageContest></AdminRoute>
+            },
+            {
+                path: '/dashboard/profile',
+                element: <Profile></Profile>
             }
         ]
     }

@@ -5,13 +5,13 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import useUsers from "../../Hooks/useUsers";
+import useCreator from "../../Hooks/useCreator";
 
 const AddContest = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [startDate, setStartDate] = useState(new Date());
     const axiosPublic = useAxiosPublic();
-    const [creator ] = useUsers();
+    const [creator ] = useCreator();
 
     // add contest
     const onSubmit = async (data) => {

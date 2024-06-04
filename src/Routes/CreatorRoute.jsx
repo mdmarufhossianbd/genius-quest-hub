@@ -24,7 +24,7 @@ const CreatorRoute = ({children}) => {
     </div>
     }
 
-    if(user || creator){
+    if(users || users.role == 'Creator') {
         return children
     }
 
