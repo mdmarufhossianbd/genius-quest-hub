@@ -4,14 +4,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
+import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import useCreator from "../../Hooks/useCreator";
 
 const AddContest = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [startDate, setStartDate] = useState(new Date());
     const axiosPublic = useAxiosPublic();
-    const [creator ] = useCreator();
+    const {user} = useAuth()
 
     // add contest
     const onSubmit = async (data) => {
@@ -26,8 +26,8 @@ const AddContest = () => {
         if (res.data.success) {
             const contest = {
                 creator : {
-                   email: creator.email,
-                   name : creator.name
+                   email: user.email,
+                   name : user.name
                 },                
                 name: data.name,
                 image: res.data.data.display_url,

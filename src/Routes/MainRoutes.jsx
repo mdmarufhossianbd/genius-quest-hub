@@ -10,6 +10,7 @@ import Home from "../Pages/Home/Home";
 import Signin from "../Pages/Signin/Signin";
 import Signup from "../Pages/Signup/Signup";
 import AdminRoute from "./AdminRoute";
+import CreatorRoute from "./CreatorRoute";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -39,10 +40,12 @@ const router = createBrowserRouter([
                 path: '/dashboard',
                 element: <PrivateRoute><DashboardHome></DashboardHome></PrivateRoute>
             },
+            // creator
             {
                 path: '/dashboard/add-contest',
-                element: <PrivateRoute><AddContest></AddContest></PrivateRoute>
+                element: <CreatorRoute><AddContest></AddContest></CreatorRoute>
             },
+            // admin
             {
                 path: '/dashboard/manage-user',
                 element: <AdminRoute><ManageUser></ManageUser></AdminRoute>
