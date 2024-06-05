@@ -1,50 +1,47 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from 'react-hot-toast';
-import useAllUser from "../../Hooks/useAllUser";
-import useAuth from "../../Hooks/useAuth";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import toast, { Toaster } from "react-hot-toast";
+import { useLoaderData } from "react-router-dom";
+import useAllUser from "../../../Hooks/useAllUser";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
-const AddContest = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+const UpdateContest = () => {
+    const { register, handleSubmit, formState: { errors }  } = useForm();
     const [startDate, setStartDate] = useState(new Date());
     const axiosPublic = useAxiosPublic();
-    const {user} = useAuth();
-    const [confirmAddContest, setConfirmAddContest] = useState(false);
+    // user checking for block or unblock
+    const [confirmUpdateContest, setConfirmUpdateContest] = useState(false);
     const [allUser, isLoading] = useAllUser();
-    const userEmail = user?.email;
+    const {user} = useAuth();
+    const userEmail = user?.email;    
+    const contest = useLoaderData();
+
+    const {_id, contestName, contestDescription, contestRegistrationFee, contestPrize, contestInstructions, contestContestType, contestDeadline} = contest;
 
     if (isLoading) {
         return <div className="flex justify-center items-center min-h-screen">
             <span className=" loading loading-dots loading-lg"></span>
         </div>
     }
-    
-    
-    const loginUser = allUser.find(user => user?.email ===  userEmail )
 
-    // add contest
+    const loginUser = allUser.find(user => user?.email ===  userEmail)
+    // update contest
     const onSubmit = async (data) => {
-        // account status checking
+        // user status checking
         if(loginUser.status === 'block')
             return toast.error('Your account is block. For add contest unblock your account')
         else{
-            setConfirmAddContest(true)
-             // image upload
+            setConfirmUpdateContest(true);
             const imgFile = { image: data.image[0] }
             const res = await axiosPublic.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`, imgFile, {
                 headers: {
                     'content-Type': 'multipart/form-data'
                 }
             });
-            // data in a object for sent databse
-            if (res.data.success) {
-                const contest = {                
-                    creatorEmail : user.email,
-                    creatorName : user.displayName,
+            if(res.data.success){
+                const contest = {
                     contestName: data.name,
                     contestImage: res.data.data.display_url,
                     contestDescription: data.description,
@@ -54,66 +51,53 @@ const AddContest = () => {
                     contestContestType: data.contest_type,
                     contestPublishDate: new Date(),
                     contestDeadline: startDate,
-                    contestParticipateCount: 0,
-                    contestStatus: 'pending',
-                }            
-                // sending data in database
-                const contestSet = await axiosPublic.post('/contests', contest);
-    
-                if (contestSet.data) {
-                    toast.success('Your contest added successfully');
-                    setConfirmAddContest(false)
+                }
+                const updateContest = await axiosPublic.put(`contests/${_id}`, contest);
+                if(updateContest.data){
+                    toast.success('Contest update successfully');
+                    setConfirmUpdateContest(false)
                 }
             }
         }
-
-        
-
     }
 
     return (
-        <div className="w-full mx-auto my-20 p-20 rounded-lg bg-[#D6EAFF] text-[#0F0F0F]">
-            <Helmet><title>Add contest || Genius Quest Hub</title></Helmet>
-            <h2 className="text-5xl font-bold text-center pb-10">Add Contest</h2>
+        <div className="bg-[#D6EAFF] p-20 rounded-lg">
+            <h2 className="text-5xl font-bold text-center pb-10">Update Contest</h2>
             <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex gap-5">
                     <div className="flex flex-col w-1/2">
                         <label className="text-xl pb-1">Contest name</label>
-                        <input className="p-2 rounded-md" placeholder="Enter your contest name." type="text" {...register("name", { required: true })} />
-                        {errors.name && <span className="text-red-400 py-1">Contest name is required.</span>}
+                        <input className="p-2 rounded-md" placeholder="Enter your contest name." defaultValue={contestName} type="text" {...register("name")} />                        
                     </div>
                     <div className="flex flex-col w-1/2">
                         <label className="text-xl pb-1">Contest image</label>
-                        <input className="pt-1" type="file" {...register("image", { required: true })} />
+                        <input className="pt-1" type="file" {...register("image", {required : true})} />
                         {errors.image && <span className="text-red-400 py-1">Contest image is required.</span>}
                     </div>
                 </div>
                 <div className="flex flex-col">
                     <label className="text-xl pb-1">Contest description</label>
-                    <textarea className="rounded-md p-2 resize-none" placeholder="Enter your contest description." rows={8} type="text" {...register("description", { required: true })}></textarea>
-                    {errors.description && <span className="text-red-400 py-1">Contest description is required.</span>}
+                    <textarea className="rounded-md p-2 resize-none" placeholder="Enter your contest description." rows={8} type="text" defaultValue={contestDescription} {...register("description")}></textarea>                    
                 </div>
                 <div className="flex gap-5">
                     <div className="flex flex-col w-1/2">
                         <label className="text-xl pb-1">Registration Fee</label>
-                        <input type="number" className="p-2 rounded-md" placeholder="Enter contest registration fee."  {...register("contest_fee", { required: true })} />
-                        {errors.contest_fee && <span className="text-red-400 py-1">Contest fee is required.</span>}
+                        <input type="number" className="p-2 rounded-md" placeholder="Enter contest registration fee." defaultValue={contestRegistrationFee} {...register("contest_fee")} />
                     </div>
                     <div className="flex flex-col w-1/2">
                         <label className="text-xl pb-1">Contest prize</label>
-                        <input className="p-2 rounded-md " type="text" placeholder="Enter contest prize" {...register("contest_prize", { required: true })} id="" />
-                        {errors.contest_prize && <span className="text-red-400 py-1">Contest prize is required.</span>}
+                        <input className="p-2 rounded-md " type="text" placeholder="Enter contest prize" defaultValue={contestPrize} {...register("contest_prize")} id="" />                        
                     </div>
                 </div>
                 <div className="flex flex-col">
                     <label className="text-xl pb-1">Contest instructions</label>
-                    <textarea className="rounded-md p-2 resize-none" placeholder="Enter contest submit instructions" rows={8} {...register("instruction", { required: true })}></textarea>
-                    {errors.instruction && <span className="text-red-400 py-1">Contest instruction is required.</span>}
+                    <textarea className="rounded-md p-2 resize-none" placeholder="Enter contest submit instructions" defaultValue={contestInstructions} rows={8} {...register("instruction")}></textarea>                    
                 </div>
                 <div className="flex gap-5">
                     <div className="flex flex-col w-1/2">
                         <label className="text-xl pb-1">Select contest type</label>
-                        <select className="p-2 rounded-md " {...register("contest_type", { required: true })}>
+                        <select className="p-2 rounded-md" defaultValue={contestContestType} {...register("contest_type")}>
                             <option disabled>Choose a contest type</option>
                             <option value="Image Design">Image Design</option>
                             <option value="Article Writing">Article Writing</option>
@@ -124,15 +108,14 @@ const AddContest = () => {
                             <option value="Business Idea">Business Idea</option>
                             <option value="Movie Review">Movie Review</option>
                         </select>
-                        {errors.contest_type && <span className="text-red-400 py-1">Contest contest type is required.</span>}
                     </div>
                     <div className="flex flex-col w-1/2">
-                        <label className="text-xl pb-1">Select Registration Last Date</label>
-                        <DatePicker className="p-2 rounded-md w-full" required selected={startDate} onChange={(date) => setStartDate(date)} />
+                        <label className="text-xl pb-1">Registration Deadline</label>
+                        <DatePicker defaultValue={contestDeadline} className="p-2 rounded-md w-full" required selected={startDate} onChange={(date) => setStartDate(date)} />
                     </div>
                 </div>
                 <div className="flex justify-end">
-                    <input className="bg-[#407bff] text-white rounded-lg p-2 font-semibold hover:cursor-pointer hover:bg-[#2b2b2b] transition duration-300 w-[200px] disabled:cursor-not-allowed" disabled={!confirmAddContest === false} type="submit" value={ confirmAddContest ? 'Submiting' : 'Submit'} />
+                    <input className="bg-[#407bff] text-white rounded-lg p-2 font-semibold hover:cursor-pointer hover:bg-[#2b2b2b] transition duration-300 w-[200px] disabled:cursor-not-allowed" disabled={!confirmUpdateContest === false} type="submit" value={confirmUpdateContest ? 'Submiting' : 'Submit'} />
                 </div>
                 <Toaster
                     position="top-right"
@@ -143,4 +126,4 @@ const AddContest = () => {
     );
 };
 
-export default AddContest;
+export default UpdateContest;

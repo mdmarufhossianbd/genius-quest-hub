@@ -83,6 +83,7 @@ const Mycontest = () => {
                         <th>Contest Status</th>
                         <th>Admin Comment</th>
                         <th>View</th>
+                        <th>Update</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -98,6 +99,7 @@ const Mycontest = () => {
                             <td>
                                 <Link to={`/dashboard/contest-preview/${contest._id}`}><button>View</button></Link>
                             </td>
+                            <td><Link to={`/dashboard/update-contest/${contest._id}`}><button>Edit</button></Link></td>
                             <td><button onClick={() => handleDelete(contest)} className="ml-5"><FaTrashAlt className="text-red-500" /></button></td>
                         </tr>)
                     }
