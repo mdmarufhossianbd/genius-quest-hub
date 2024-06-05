@@ -9,7 +9,6 @@ const useCreatorContest = () => {
         queryKey: [user.email, 'myContests'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/contests/my-contests/${user.email}`);
-            console.log(res.data);
             return res.data;
         }
     })

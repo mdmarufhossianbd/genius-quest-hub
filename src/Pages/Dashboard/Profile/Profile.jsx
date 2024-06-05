@@ -13,8 +13,7 @@ const Profile = () => {
      
     return (
         <div>
-            This is profile page. {users?.name}. & Role is {users?.role}
-            
+            This is profile page. {users?.name}. Your Role is {users?.role} and your account status is now {users?.status}            
         </div>
     );
 };

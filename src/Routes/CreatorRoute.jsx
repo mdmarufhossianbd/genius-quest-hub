@@ -7,8 +7,6 @@ const CreatorRoute = ({children}) => {
     const {user, loading} = useAuth();
     const [creator, isLoading] = useCreator();
     const location = useLocation();
-    
-    console.log(creator);
    
     if(loading || isLoading){
         return <div className="flex justify-center items-center min-h-screen">

@@ -44,13 +44,16 @@ const ManageContest = () => {
     }
 
     // contest comment
-    const handleComment = (event, contest) => {       
-        const comment = event.target.comment.value;
-        const comments = {comment, contest}
+    const handleComment = (event, contest) => {
+        const form = event.target
+        const comment = form.comment.value;
+        const contestId = contest.contest._id;       
+        const comments = {comment, contestId}
         axiosSecure.post('/comments', comments)
            .then((res) => {
                 if (res.data.insertedId) {
                     toast.success('Your comment send successfully');
+                    form.reset();
                 }
             })
             .catch((error) => {

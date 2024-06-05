@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
+import useAllUser from "../../Hooks/useAllUser";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
@@ -13,42 +14,60 @@ const AddContest = () => {
     const axiosPublic = useAxiosPublic();
     const {user} = useAuth();
     const [confirmAddContest, setConfirmAddContest] = useState(false)
+    const [allUser, isLoading] = useAllUser()
+    const userEmail = user?.email;
+
+    if (isLoading) {
+        return <div className="flex justify-center items-center min-h-screen">
+            <span className=" loading loading-dots loading-lg"></span>
+        </div>
+    }
+    
+    
+    const loginUser = allUser.find(user => user?.email ===  userEmail )
 
     // add contest
     const onSubmit = async (data) => {
-        // image upload
-        setConfirmAddContest(true)
-        const imgFile = { image: data.image[0] }
-        const res = await axiosPublic.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`, imgFile, {
-            headers: {
-                'content-Type': 'multipart/form-data'
-            }
-        });
-        // data in a object for sent databse
-        if (res.data.success) {
-            const contest = {                
-                creatorEmail : user.email,
-                creatorName : user.displayName,
-                contestName: data.name,
-                contestImage: res.data.data.display_url,
-                contestDescription: data.description,
-                contestRegistrationFee: parseInt(data.contest_fee),
-                contestPrize: data.contest_prize,
-                contestInstructions: data.instruction,
-                contestContestType: data.contest_type,
-                contestPublishDate: new Date(),
-                contestDeadline: startDate,
-                contestParticipateCount: 0,
-                contestStatus: 'pending',
-            }            
-            // sending data in database
-            const contestSet = await axiosPublic.post('/contests', contest);
-
-            if (contestSet.data) {
-                toast.success('Your contest added successfully');
-                setConfirmAddContest(false)
+        // account status checking
+        if(loginUser.status === 'block')
+            return toast.error('Your account is block. For add contest unblock your account')
+        else{
+            setConfirmAddContest(true)
+             // image upload
+            const imgFile = { image: data.image[0] }
+            const res = await axiosPublic.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`, imgFile, {
+                headers: {
+                    'content-Type': 'multipart/form-data'
+                }
+            });
+            // data in a object for sent databse
+            if (res.data.success) {
+                const contest = {                
+                    creatorEmail : user.email,
+                    creatorName : user.displayName,
+                    contestName: data.name,
+                    contestImage: res.data.data.display_url,
+                    contestDescription: data.description,
+                    contestRegistrationFee: parseInt(data.contest_fee),
+                    contestPrize: data.contest_prize,
+                    contestInstructions: data.instruction,
+                    contestContestType: data.contest_type,
+                    contestPublishDate: new Date(),
+                    contestDeadline: startDate,
+                    contestParticipateCount: 0,
+                    contestStatus: 'pending',
+                }            
+                // sending data in database
+                const contestSet = await axiosPublic.post('/contests', contest);
+    
+                if (contestSet.data) {
+                    toast.success('Your contest added successfully');
+                    setConfirmAddContest(false)
+                }
             }
         }
+
+        
 
     }
 
