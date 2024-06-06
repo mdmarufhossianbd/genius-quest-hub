@@ -3,6 +3,8 @@ import ContestView from "../Components/Shared/ContestView";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Root from "../Layout/Root";
 import AddContest from "../Pages/AddContest/AddContest";
+import Contest from "../Pages/Contest/Contest";
+import ContestDetails from "../Pages/ContestDetails/ContestDetails";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import ManageContest from "../Pages/Dashboard/ManageContest/ManageContest";
 import ManageUser from "../Pages/Dashboard/ManageUser/ManageUser";
@@ -32,7 +34,16 @@ const router = createBrowserRouter([
             {
                 path: '/signin',
                 element: <Signin></Signin>
-            },            
+            },
+            {
+                path: '/contest',
+                element: <Contest></Contest>
+            },
+            {
+                path: '/contest/details/:id',
+                element: <ContestDetails></ContestDetails>,
+                loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
+            }
         ]
     },
     {

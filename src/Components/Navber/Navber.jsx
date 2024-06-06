@@ -27,7 +27,7 @@ const Navber = () => {
     // navlinks
     const navlinks = <>
         <Link className="text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/'}>Home</Link>
-        <Link className="text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/all-jobs'}>All Jobs</Link>
+        <Link className="text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/contest'}>Contest</Link>
         <Link className="text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/add-job'}>Add Jobs</Link>
         <Link className="text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/blog'}>Blog</Link>
     </>
@@ -35,7 +35,6 @@ const Navber = () => {
     const userLinks = <>
         <li>
             <Link to={'/dashboard'}>Dashboard</Link>
-            <Link to={'/my-applied-jobs'}>My Applied Jobs</Link>
             <Link to={'/profile'}>Profile</Link>
         </li>
     </>
