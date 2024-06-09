@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const ContestDetails = () => {
     const contest = useLoaderData();
     const [resBtnDisabled, setResBtnDisabled] = useState(false);
+    const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+    const { user } = useAuth()
+    // console.log(contest);
 
     const { contestContestType, contestDeadline, contestDescription, contestImage, contestInstructions, contestName, contestParticipateCount, contestPrize, contestPublishDate, contestRegistrationFee, creatorEmail, creatorName, _id } = contest;
-    
+
     // timer for registration expried date.
-    const formateDeadline = new Date(contestDeadline);    
+    const formateDeadline = new Date(contestDeadline);
     const registrationRemaingTime = Math.floor((formateDeadline - new Date()) / 1000)
     const [timeLeft, setTimeLeft] = useState(registrationRemaingTime);
 
@@ -29,6 +36,30 @@ const ContestDetails = () => {
         return `${months} months ${days} days ${hours} hours ${minutes} minutes ${remainingSeconds < 10 ? '0' : ''}${remainingSeconds} seconds`;
     };
 
+    const handleReg = () => {
+        if (user.email === creatorEmail) {
+            return toast.error('You can not particapate because you are owner of this contest.', {
+                duration: 6000,
+            })
+        }
+        const registeredContest = {
+            contestId: _id,
+            email: user?.email,
+            name: user?.displayName,
+            contestName,
+            contestRegistrationFee,
+            creatorEmail,
+            creatorName,
+            contestDeadline,
+            contestImage,
+            contestPrize,
+            contestPublishDate,
+            contestContestType
+        }
+        axiosPublic.put(`/contest-summery/${user.email}`, registeredContest)
+        navigate(`/payment`);
+    }
+
 
     return (
         <div className="max-w-7xl mx-auto">
@@ -48,7 +79,13 @@ const ContestDetails = () => {
                     <p><span className="font-semibold">Apply Deadline : </span>{contestContestType}</p>
                     <p><span className="font-semibold">Total Participate : </span>{contestParticipateCount} </p>
                     <p><span className="font-semibold">Registration Remaining : </span> {timeLeft > 0 ? formatTime(timeLeft) : 'not available'}</p>
-                    <Link to={'/payment'}><button disabled={resBtnDisabled} className="btn btn-sm w-full bg-[#407BFF] hover:text-black text-white hover:bg-white ">{resBtnDisabled ? "Registration date expried" : 'Participate'}</button></Link>
+                    {
+                        resBtnDisabled ? <button disabled={resBtnDisabled} className="btn btn-sm w-full bg-[#407BFF] hover:text-black text-white hover:bg-white ">{resBtnDisabled ? "Registration date expried" : 'Participate'}</button> : <button onClick={handleReg} disabled={resBtnDisabled} className="btn btn-sm w-full bg-[#407BFF] hover:text-black text-white hover:bg-white ">{resBtnDisabled ? "Registration date expried" : 'Participate'}</button>
+                    }
+                    <Toaster
+                        position="top-center"
+                        reverseOrder={false}
+                    />
                 </div>
             </div>
         </div>

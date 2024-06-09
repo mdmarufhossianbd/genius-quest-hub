@@ -45,6 +45,7 @@ const router = createBrowserRouter([
                 element: <ContestDetails></ContestDetails>,
                 loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
             },
+            
             {
                 path: '/payment',
                 element: <Payment></Payment>
