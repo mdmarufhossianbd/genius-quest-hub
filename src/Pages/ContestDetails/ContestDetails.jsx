@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const ContestDetails = () => {
     const contest = useLoaderData();
@@ -48,7 +48,7 @@ const ContestDetails = () => {
                     <p><span className="font-semibold">Apply Deadline : </span>{contestContestType}</p>
                     <p><span className="font-semibold">Total Participate : </span>{contestParticipateCount} </p>
                     <p><span className="font-semibold">Registration Remaining : </span> {timeLeft > 0 ? formatTime(timeLeft) : 'not available'}</p>
-                    <button disabled={resBtnDisabled} className="btn btn-sm w-full bg-[#407BFF] hover:text-black text-white hover:bg-white ">{resBtnDisabled ? "Registration date expried" : 'Participate'}</button>
+                    <Link to={'/payment'}><button disabled={resBtnDisabled} className="btn btn-sm w-full bg-[#407BFF] hover:text-black text-white hover:bg-white ">{resBtnDisabled ? "Registration date expried" : 'Participate'}</button></Link>
                 </div>
             </div>
         </div>

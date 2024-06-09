@@ -9,6 +9,7 @@ import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import ManageContest from "../Pages/Dashboard/ManageContest/ManageContest";
 import ManageUser from "../Pages/Dashboard/ManageUser/ManageUser";
 import Mycontest from "../Pages/Dashboard/Mycontest/Mycontest";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import UpdateContest from "../Pages/Dashboard/UpdateContest/UpdateContest";
 import Home from "../Pages/Home/Home";
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
                 path: '/contest/details/:id',
                 element: <ContestDetails></ContestDetails>,
                 loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
+            },
+            {
+                path: '/payment',
+                element: <Payment></Payment>
             }
         ]
     },
