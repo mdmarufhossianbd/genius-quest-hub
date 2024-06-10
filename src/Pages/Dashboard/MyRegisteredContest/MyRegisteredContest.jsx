@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import MyRegisteredCard from "./MyRegisteredCard";
+
 
 const MyRegisteredContest = () => {
     const axiosSecure = useAxiosSecure();
@@ -26,7 +28,7 @@ const MyRegisteredContest = () => {
             <h2>My Total registered contest {registeredContest.length}</h2>
             <div>
                 {
-                    registeredContest.map(contest => <p key={contest._id}>{contest.contestName}</p>)
+                    registeredContest.map(contest => <MyRegisteredCard key={contest._id} contest={contest}></MyRegisteredCard>)
                 }
             </div>
         </div>

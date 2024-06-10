@@ -12,6 +12,7 @@ import MyRegisteredContest from "../Pages/Dashboard/MyRegisteredContest/MyRegist
 import Mycontest from "../Pages/Dashboard/Mycontest/Mycontest";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import Profile from "../Pages/Dashboard/Profile/Profile";
+import RegisteredContest from "../Pages/Dashboard/RegisteredContest/RegisteredContest";
 import UpdateContest from "../Pages/Dashboard/UpdateContest/UpdateContest";
 import Home from "../Pages/Home/Home";
 import Signin from "../Pages/Signin/Signin";
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
                 loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
             },
             {
-                path: '/dashboard/registered-contest',
+                path: '/dashboard/my-registered-contest',
                 element: <MyRegisteredContest></MyRegisteredContest>
             },
             // creator
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
                 path: '/dashboard/update-contest/:id',
                 element: <CreatorRoute><UpdateContest></UpdateContest></CreatorRoute>,
                 loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
+            },
+            {
+                path: '/dashboard/registered-contest',
+                element: <CreatorRoute><RegisteredContest></RegisteredContest></CreatorRoute>
             },
             // admin
             {

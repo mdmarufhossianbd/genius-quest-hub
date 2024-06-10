@@ -3,14 +3,15 @@ import toast, { Toaster } from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useRegisterContest from "../../Hooks/useRegisterContest";
 
 const ContestDetails = () => {
     const contest = useLoaderData();
     const [resBtnDisabled, setResBtnDisabled] = useState(false);
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
-    const { user } = useAuth()
-    // console.log(contest);
+    const { user } = useAuth();
+    const [regContest] = useRegisterContest();
 
     const { contestContestType, contestDeadline, contestDescription, contestImage, contestInstructions, contestName, contestParticipateCount, contestPrize, contestPublishDate, contestRegistrationFee, creatorEmail, creatorName, _id } = contest;
 
@@ -36,28 +37,33 @@ const ContestDetails = () => {
         return `${months} months ${days} days ${hours} hours ${minutes} minutes ${remainingSeconds < 10 ? '0' : ''}${remainingSeconds} seconds`;
     };
 
+    const match = regContest.find(item => item.contestId === _id && item.userEmail === user?.email)
     const handleReg = () => {
         if (user.email === creatorEmail) {
-            return toast.error('You can not particapate because you are owner of this contest.', {
-                duration: 6000,
-            })
+            return toast.error('You can not particapate because you are owner of this contest.')
         }
-        const registeredContest = {
-            contestId: _id,
-            email: user?.email,
-            name: user?.displayName,
-            contestName,
-            contestRegistrationFee,
-            creatorEmail,
-            creatorName,
-            contestDeadline,
-            contestImage,
-            contestPrize,
-            contestPublishDate,
-            contestContestType
+        else if (match) {
+            return toast.error('You are already Registered in this contest')
         }
-        axiosPublic.put(`/contest-summery/${user.email}`, registeredContest)
-        navigate(`/payment`);
+         else {
+            const registeredContest = {
+                contestId: _id,
+                email: user?.email,
+                name: user?.displayName,
+                contestName,
+                contestRegistrationFee,
+                creatorEmail,
+                creatorName,
+                contestDeadline,
+                contestImage,
+                contestPrize,
+                contestPublishDate,
+                contestContestType
+            }
+            axiosPublic.put(`/contest-summery/${user.email}`, registeredContest)
+            navigate(`/payment`);
+        }
+        
     }
 
 

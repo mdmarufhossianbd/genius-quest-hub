@@ -27,7 +27,6 @@ const ContestCart = ({ contest }) => {
                 </div>
                 <Link to={`/contest/details/${_id}`}><button className='btn btn-sm w-full bg-[#407BFF] text-white hover:bg-[#2b2b2b]'>Details</button></Link>
             </div>
-
         </div>
     );
 };

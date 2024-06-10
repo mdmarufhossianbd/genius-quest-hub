@@ -26,9 +26,9 @@ const CheckoutFrom = () => {
     const creatorName = bookingContest[0]?.creatorName || '';
     const userEmail = bookingContest[0]?.email || '';
     const userName = bookingContest[0]?.name || '';
+    const contestType = bookingContest[0]?.contestType || '';
 
     const regFee = bookingContest[0]?.contestRegistrationFee;
-    console.log(regFee);
     useEffect(() => {
         axiosSecure.post('/create-payment', { regFee: regFee || 0.5 })
             .then(res => {
@@ -76,7 +76,7 @@ const CheckoutFrom = () => {
             if (paymentIntent.status === 'succeeded') {
                 const paymentInfo = {
                     contestId, contestDeadline, contestImage, contestName, contestPrize, contestPublishDate, contestRegistrationFee, creatorEmail, creatorName, 
-                    userEmail, userName,                   
+                    userEmail, userName, contestType,
                     regDate: new Date(),
                     transactionId: paymentIntent.id,                    
                 }
