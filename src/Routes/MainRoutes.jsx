@@ -8,6 +8,7 @@ import ContestDetails from "../Pages/ContestDetails/ContestDetails";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import ManageContest from "../Pages/Dashboard/ManageContest/ManageContest";
 import ManageUser from "../Pages/Dashboard/ManageUser/ManageUser";
+import MyRegisteredContest from "../Pages/Dashboard/MyRegisteredContest/MyRegisteredContest";
 import Mycontest from "../Pages/Dashboard/Mycontest/Mycontest";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import Profile from "../Pages/Dashboard/Profile/Profile";
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
                 path: '/dashboard/contest-preview/:id',
                 element: <PrivateRoute><ContestView></ContestView></PrivateRoute>,
                 loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
+            },
+            {
+                path: '/dashboard/registered-contest',
+                element: <MyRegisteredContest></MyRegisteredContest>
             },
             // creator
             {
