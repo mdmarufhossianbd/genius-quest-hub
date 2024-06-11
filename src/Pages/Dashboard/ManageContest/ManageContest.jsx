@@ -47,8 +47,8 @@ const ManageContest = () => {
     const handleComment = (event, contest) => {
         const form = event.target
         const comment = form.comment.value;
-        const contestId = contest.contest._id;       
-        const comments = {comment, contestId}
+        const contestId = contest.contest._id;
+        const comments = {comment, contestId};
         axiosSecure.post('/comments', comments)
            .then((res) => {
                 if (res.data.insertedId) {

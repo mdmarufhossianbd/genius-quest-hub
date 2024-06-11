@@ -36,8 +36,8 @@ const Mycontest = () => {
         } else {
             matchedComment.map(item => Swal.fire({
                 title: "Message for you",
-                text: item.comment,    
-              }) )
+                text: item.comment,
+            }))
         }
 
     }

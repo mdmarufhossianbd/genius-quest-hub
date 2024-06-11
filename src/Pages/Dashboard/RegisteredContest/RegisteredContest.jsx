@@ -10,10 +10,23 @@ const RegisteredContest = () => {
     const { data: regContests = [], isPending } = useQuery({
         queryKey: ['cart', user?.email],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/registered-contest/?email=${user.email}`);
+            const res = await axiosSecure.get(`/registered-contest/creator?email=${user.email}`);
             return res.data;
         }
     })
+
+    const removeDuplacate = contests => {
+        const currentItem = new Set();
+        return contests.filter(item => {
+            if(currentItem.has(item.contestId)){
+                return false;
+            } else {
+                currentItem.add(item.contestId);
+                return true
+            }
+        })
+    }
+    const withoutDuplacate = removeDuplacate(regContests)
 
     if (isPending) {
         return <div className="flex justify-center items-center min-h-screen">
@@ -21,14 +34,12 @@ const RegisteredContest = () => {
         </div>
     }
 
-    console.log(regContests);
-
     return (
         <div>
-            This is registered contest page for creator. {regContests.length}
+            <h2>Total Registration {regContests?.length}</h2>
             <div className="grid grid-cols-2 gap-5">
                 {
-                    regContests.map(regContest => <ContestCard key={regContest._id} regContest={regContest}></ContestCard>)
+                    withoutDuplacate?.map(contest => <ContestCard key={contest._id} contest={contest}></ContestCard>)
                 }
             </div>
         </div>

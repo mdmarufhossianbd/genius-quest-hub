@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import useAuth from '../../../Hooks/useAuth';
+import useRegisterContest from '../../../Hooks/useRegisterContest';
 
-const ContestCard = ({ regContest }) => {
+const ContestCard = ({ contest }) => {
+    const [regContest] = useRegisterContest();
+    const {user} = useAuth();
+    const regCount = regContest.filter(item => item.creatorEmail === user?.email);
+    const { contestDeadline, contestId, contestImage, contestName, contestPrize, contestPublishDate, contestRegistrationFee, creatorEmail, creatorName, regDate, transactionId, userEmail, userName, contestType, _id } = contest;
+    
+    const totalReg = regCount.filter(item => item.contestId == contestId);
 
-    const { contestDeadline, contestId, contestImage, contestName, contestPrize, contestPublishDate, contestRegistrationFee, creatorEmail, creatorName, regDate, transactionId, userEmail, userName, contestType, _id } = regContest;
     return (
         <div>
             <div className='flex gap-3 bg-[#a0bdfcbe] p-3 rounded-lg'>
@@ -14,23 +21,23 @@ const ContestCard = ({ regContest }) => {
                     <div className='text-black'>
                         <h2 className='font-semibold pb-3'>
                             {
-                                contestName.length >= 60 ? contestName.slice(0, 60) + "..." : contestName
+                                contestName.length >= 50 ? contestName.slice(0, 50) + "..." : contestName
                             }
                         </h2>
                         <p><span className='font-semibold'>Deadline : </span>{new Date(contestDeadline).toLocaleDateString()}</p>
                         <p><span className='font-semibold'>Prize : </span>{contestPrize}</p>
-                        <p><span className='font-semibold'>Contest Category:</span> {contestType}</p>
-                       
+                        <p><span className='font-semibold'>Contest Category : </span> {contestType}</p>
+                       <p><span className='font-semibold'>Total Registration :</span> {totalReg.length}</p>
                     </div>
-                    <Link><button className='btn btn-sm w-full bg-[#407BFF] text-white hover:bg-[#2b2b2b]'>Details</button></Link>
+                    <Link to={`/dashboard/mange-contest-application/${_id}`}><button className='btn btn-sm w-full bg-[#407BFF] text-white hover:bg-[#2b2b2b]'>Details</button></Link>
                 </div>
             </div>
         </div>
     );
 };
 
-ContestCard.propTypes  = {
-    regContest: PropTypes.object
+ContestCard.propTypes = {
+    contest: PropTypes.object
 }
 
 export default ContestCard;

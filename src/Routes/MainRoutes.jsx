@@ -12,6 +12,7 @@ import MyRegisteredContest from "../Pages/Dashboard/MyRegisteredContest/MyRegist
 import Mycontest from "../Pages/Dashboard/Mycontest/Mycontest";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import Profile from "../Pages/Dashboard/Profile/Profile";
+import MangeContestApplication from "../Pages/Dashboard/RegisteredContest/MangeContestApplication";
 import RegisteredContest from "../Pages/Dashboard/RegisteredContest/RegisteredContest";
 import UpdateContest from "../Pages/Dashboard/UpdateContest/UpdateContest";
 import Home from "../Pages/Home/Home";
@@ -88,6 +89,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/registered-contest',
                 element: <CreatorRoute><RegisteredContest></RegisteredContest></CreatorRoute>
+            },
+            {
+                path: '/dashboard/mange-contest-application/:id',
+                element: <CreatorRoute><MangeContestApplication></MangeContestApplication></CreatorRoute>,
+                loader: ({params})=>fetch(`http://localhost:5000/registered-contests/${params.id}`)
             },
             // admin
             {
