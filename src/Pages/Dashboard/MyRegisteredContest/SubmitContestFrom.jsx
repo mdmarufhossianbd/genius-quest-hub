@@ -38,6 +38,7 @@ const SubmitContestFrom = () => {
             .then(res=>{
                 if(res.data.insertedId){
                     toast.success('Your contest submited successfully');
+                    navigate(-1)
                 }
             })
         }
