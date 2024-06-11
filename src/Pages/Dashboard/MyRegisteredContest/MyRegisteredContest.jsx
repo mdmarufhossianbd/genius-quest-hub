@@ -22,11 +22,12 @@ const MyRegisteredContest = () => {
                 </div>
     }
 
+    console.log(registeredContest);
     
     return (
         <div>
             <h2>My Total registered contest {registeredContest.length}</h2>
-            <div>
+            <div className="flex gap-5">
                 {
                     registeredContest.map(contest => <MyRegisteredCard key={contest._id} contest={contest}></MyRegisteredCard>)
                 }

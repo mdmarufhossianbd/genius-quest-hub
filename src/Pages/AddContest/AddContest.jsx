@@ -59,16 +59,12 @@ const AddContest = () => {
                 }            
                 // sending data in database
                 const contestSet = await axiosPublic.post('/contests', contest);
-    
                 if (contestSet.data) {
                     toast.success('Your contest added successfully');
                     setConfirmAddContest(false)
                 }
             }
         }
-
-        
-
     }
 
     return (

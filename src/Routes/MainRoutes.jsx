@@ -9,6 +9,7 @@ import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import ManageContest from "../Pages/Dashboard/ManageContest/ManageContest";
 import ManageUser from "../Pages/Dashboard/ManageUser/ManageUser";
 import MyRegisteredContest from "../Pages/Dashboard/MyRegisteredContest/MyRegisteredContest";
+import SubmitContestFrom from "../Pages/Dashboard/MyRegisteredContest/SubmitContestFrom";
 import Mycontest from "../Pages/Dashboard/Mycontest/Mycontest";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import Profile from "../Pages/Dashboard/Profile/Profile";
@@ -71,6 +72,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/my-registered-contest',
                 element: <MyRegisteredContest></MyRegisteredContest>
+            },
+            {
+                path: '/dashboard/contest-submision/:id',
+                element: <SubmitContestFrom></SubmitContestFrom>,
+                // loader: ({params})=>fetch(`http://localhost:5000/registered-contests/${params.id}`)
             },
             // creator
             {
