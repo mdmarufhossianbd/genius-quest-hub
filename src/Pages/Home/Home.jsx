@@ -6,7 +6,10 @@ const Home = () => {
             <Helmet>
                 <title>Home || Genius Quest Hub</title>
             </Helmet>
-            <h2>This is home page.</h2>
+            {/* banner */}
+            <div>
+                
+            </div>
         </div>
     );
 };
