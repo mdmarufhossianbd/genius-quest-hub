@@ -27,6 +27,7 @@ const Banner = () => {
         e.preventDefault();
         const searchKW = e.target.search.value;
         setSearchKW(searchKW);
+        e.target.reset()
     }
 
 
