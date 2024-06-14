@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Banner from "./Banner";
+import PopularContest from "./PopularContest";
 
 const Home = () => {
     return (
@@ -9,6 +10,8 @@ const Home = () => {
             </Helmet>
             {/* banner */}
            <Banner></Banner>
+           {/* Popular */}
+           <PopularContest></PopularContest>
         </div>
     );
 };
