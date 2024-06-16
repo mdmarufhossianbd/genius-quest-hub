@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 const PopularContestCard = ({ contest }) => {
     const { contestName, contestImage, contestDescription, contestParticipateCount, _id } = contest;
     return (
@@ -10,7 +11,7 @@ const PopularContestCard = ({ contest }) => {
             }</p>
             <div className='flex justify-between items-center'>
                 <p>Total Participate : {contestParticipateCount}</p>
-                <button className='hover:bg-slate-500 bg-[#dc2626f5] p-3 rounded-md w-1/2 text-white'>Details</button>
+                <Link className='hover:bg-slate-500 bg-[#dc2626f5] py-3 px-8 rounded-md ' to={`/contest/details/${_id}`}><button className=' text-white text-center'>Details</button></Link>
             </div>
         </div>
     );

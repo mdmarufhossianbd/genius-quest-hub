@@ -1,11 +1,22 @@
-import useContest from "../../Hooks/useContest";
+import {  useState } from "react";
 import PopularContestCard from "./PopularContestCard";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const PopularContest = () => {
-    const [contests, isLoading] = useContest();
+    const [asc, setAsc] = useState(true);
+    const axiosPublic = useAxiosPublic();
+    // const [popularContests, setPopularContests] = useState();
 
-    const participateContest = contests.filter(item => item.contestParticipateCount >= 0)
-    console.log(participateContest);
+
+    const {data : popularContests = [], isLoading, refetch} = useQuery({
+        queryKey: ['popularContests'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/popular-contests?sort=${asc ? 'asc' : 'des'}`)
+            return res.data;
+        }
+    });
+
     if (isLoading) {
         return <div className="flex justify-center items-center min-h-screen">
             <span className=" loading loading-dots loading-lg"></span>
@@ -18,9 +29,12 @@ const PopularContest = () => {
                 <p className="text-center ">
                     Welcome to the Popular Contests section. Our featured contests offer amazing prizes, including cash rewards, exclusive gear, and unique opportunities. Join the fun, showcase your talents, and connect with a vibrant community of like-minded individuals. Dive in and see what’s trending – your next big win could be just a click away!</p>
             </div>
+            <div className="flex ">
+                <button onClick={()=>setAsc(!asc, refetch())} className="btn">{asc ? 'High to Low' : 'Low to Hight'}</button>
+            </div>
             <div className="grid grid-cols-3 gap-5 py-10">
                 {
-                   participateContest.map(contest => <PopularContestCard key={contest._id} contest={contest}></PopularContestCard>) 
+                   popularContests?.map(contest => <PopularContestCard key={contest._id} contest={contest}></PopularContestCard>) 
                 }                
             </div>
         </div>
