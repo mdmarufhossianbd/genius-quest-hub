@@ -31,7 +31,7 @@ const UpdateContest = () => {
     const onSubmit = async (data) => {
         // user status checking
         if(loginUser.status === 'block')
-            return toast.error('Your account is block. For add contest unblock your account')
+            return toast.error('Your account is block. For update contest unblock your account')
         else{
             setConfirmUpdateContest(true);
             const imgFile = { image: data.image[0] }

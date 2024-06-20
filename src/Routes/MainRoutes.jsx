@@ -22,11 +22,13 @@ import Signup from "../Pages/Signup/Signup";
 import AdminRoute from "./AdminRoute";
 import CreatorRoute from "./CreatorRoute";
 import PrivateRoute from "./PrivateRoute";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Root></Root>,
+        errorElement : <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -49,7 +51,6 @@ const router = createBrowserRouter([
                 element: <ContestDetails></ContestDetails>,
                 loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
             },
-            
             {
                 path: '/payment',
                 element: <Payment></Payment>

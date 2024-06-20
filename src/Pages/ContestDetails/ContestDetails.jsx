@@ -4,6 +4,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useRegisterContest from "../../Hooks/useRegisterContest";
+import useAllUser from "../../Hooks/useAllUser";
 
 const ContestDetails = () => {
     const contest = useLoaderData();
@@ -12,8 +13,10 @@ const ContestDetails = () => {
     const axiosPublic = useAxiosPublic();
     const { user } = useAuth();
     const [regContest] = useRegisterContest();
-
     const { contestContestType, contestDeadline, contestDescription, contestImage, contestInstructions, contestName, contestParticipateCount, contestPrize, contestPublishDate, contestRegistrationFee, creatorEmail, creatorName, _id } = contest;
+    const [allUser, isLoading] = useAllUser();
+    const userEmail = user?.email;
+    const loginUser = allUser.find(user => user?.email === userEmail)
 
     // timer for registration expried date.
     const formateDeadline = new Date(contestDeadline);
@@ -37,6 +40,12 @@ const ContestDetails = () => {
         return `${months} months ${days} days ${hours} hours ${minutes} minutes ${remainingSeconds < 10 ? '0' : ''}${remainingSeconds} seconds`;
     };
 
+    if (isLoading) {
+        return <div className="flex justify-center items-center min-h-screen">
+            <span className=" loading loading-dots loading-lg"></span>
+        </div>
+    }
+
     const match = regContest.find(item => item.contestId === _id && item.userEmail === user?.email)
     const handleReg = () => {
         if (user.email === creatorEmail) {
@@ -45,7 +54,9 @@ const ContestDetails = () => {
         else if (match) {
             return toast.error('You are already Registered in this contest')
         }
-         else {
+        else if (loginUser.status === 'block')
+            return toast.error('Your account is block. For Registration contest unblock your account')
+        else {
             const registeredContest = {
                 contestId: _id,
                 email: user?.email,
@@ -63,7 +74,7 @@ const ContestDetails = () => {
             axiosPublic.put(`/contest-summery/${user.email}`, registeredContest)
             navigate(`/payment`);
         }
-        
+
     }
 
 
