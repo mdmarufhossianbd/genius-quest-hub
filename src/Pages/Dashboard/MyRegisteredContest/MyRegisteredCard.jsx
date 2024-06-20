@@ -2,12 +2,11 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 const MyRegisteredCard = ({ contest }) => {
     const navigate = useNavigate();
-  
+    
     const { contestImage, contestName, contestPrize, contestRegistrationFee, contestType, regDate, transactionId, contestId, _id } = contest;
     
     const handleSubmit = () => {
-        navigate(`/dashboard/contest-submision/${_id}?contestId=${contestId}`)
-        
+        navigate(`/dashboard/contest-submision/${_id}?contestId=${contestId}`) 
     }
     return (
         <div className='w-full bg-[#D7D7FF] rounded'>

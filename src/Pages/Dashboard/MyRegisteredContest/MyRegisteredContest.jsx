@@ -7,7 +7,7 @@ const MyRegisteredContest = () => {
     const axiosSecure = useAxiosSecure();
     const { user} = useAuth();
 
-    const { data: registeredContest = [], isPending} = useQuery({
+    const { data: registeredContest = [], isLoading} = useQuery({
         queryKey: ['cart', user?.email],
         queryFn: async() => { 
             const res = await axiosSecure.get(`/registered-contest?email=${user.email}`);            
@@ -15,7 +15,7 @@ const MyRegisteredContest = () => {
         }
     })
 
-    if(isPending){
+    if(isLoading){
         return <div className="flex justify-center items-center min-h-screen">
                     <span className=" loading loading-dots loading-lg"></span>
                 </div>
