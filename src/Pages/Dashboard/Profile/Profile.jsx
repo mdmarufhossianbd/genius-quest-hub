@@ -41,15 +41,15 @@ const Profile = () => {
 
     return (
         <div>            
-            <div className="flex">
-                <div className="w-1/2 flex flex-col items-center py-10 gap-3">
+            <div className="flex md:flex-row flex-col items-center justify-center">
+                <div className="md:w-1/2 flex flex-col items-center py-10 gap-3">
                     <img className="rounded-full w-56 h-56 object-cover" src={user?.photoURL} alt="" />
                     <h3 className="text-3xl font-semibold">Name : {user?.displayName}</h3>
                     <p>Email : {user?.email}</p>
                     <p>Role : Your role is {users?.role ? users?.role : 'Generel User'}</p>
                     <p>Account status : Your account status is now {users?.status ? users?.status : 'Unblock'}</p>
                 </div>
-                <div className="w-1/2 p-4">
+                <div className="md:w-1/2 p-4">
                     <h2 className="text-center py-5 text-3xl font-semibold">Update your profile</h2>
                     <form className="flex flex-col space-y-3" onSubmit={handleSubmit(onSubmit)}>
                         <label className="text-xl font-medium">Your Full Name <span className="text-red-700">*</span></label>
@@ -62,7 +62,7 @@ const Profile = () => {
                             required: true
                         })} />
                         {errors.photo && <span className="text-red-400">Profile Picture is required.</span>}
-                        <input className="hover:cursor-pointer bg-red-600 text-white py-2 rounded-lg " type="submit" />
+                        <input className="hover:cursor-pointer bg-red-600 text-white py-2 rounded-lg "type="submit" value='Update' />
                     </form>
                 </div>
             </div>

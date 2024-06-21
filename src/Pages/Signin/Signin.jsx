@@ -84,11 +84,10 @@ const Signin = () => {
     return (
         <div className="max-w-7xl mx-auto pt-20">
             <Helmet><title>Signin || Genius Quest Hub</title></Helmet>
-            <div className="flex items-center border-2 rounded-lg p-10">                
-                <div className="flex flex-col w-1/2 p-10 bg-[#a0bdfc] rounded-lg text-black">
+            <div className="flex md:flex-row flex-col-reverse items-center border-2 rounded-lg p-10 m-2">                
+                <div className="flex flex-col md:w-1/2 w-full p-10 bg-[#a0bdfc] rounded-lg text-black">
                     <h2 className="text-5xl font-semibold mb-10 text-center">Sign In</h2>
                     <form className="flex flex-col space-y-3" onSubmit={handleSubmit(onSubmit)}>
-                        
                         <label className="text-xl font-medium">Your Email <span className="text-red-700">*</span></label>
                         <input className="p-2 rounded-md" placeholder="Enter your valid e-mail." type="email" {...register("email", {
                             required: true
@@ -104,10 +103,10 @@ const Signin = () => {
                         <input disabled={disabled} className="hover:cursor-pointer bg-red-600 text-white py-2 rounded-badge disabled:bg-gray-500 disabled:cursor-not-allowed font-medium" type="submit" />
                     </form>
                     <div className="divider divider-neutral w-1/2 mx-auto">Or</div>
-                    <button onClick={handleGoogleLogin} className="w-1/2 mx-auto flex items-center bg-[#2B2B2B] btn py-2 border-none text-white hover:bg-[#407BFF] rounded-badge"><FcGoogle className="text-4xl py-2 " />Sign in With Google</button>
+                    <button onClick={handleGoogleLogin} className="md:w-1/2 w-full mx-auto flex items-center bg-[#2B2B2B] btn py-2 border-none text-white hover:bg-[#407BFF] rounded-badge"><FcGoogle className="text-4xl py-2 " />Sign in With Google</button>
                     <p className="text-center pt-4">You have not an account? <Link to={'/signup'} className="font-semibold">Sign Up</Link></p>
                 </div>
-                <div className="w-1/2">
+                <div className="md:w-1/2 ">
                     <img src={signUpImg} alt="" />
                 </div>
             </div>

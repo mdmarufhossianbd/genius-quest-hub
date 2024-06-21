@@ -37,7 +37,7 @@ const RegisteredContest = () => {
     return (
         <div>
             <h2>Total Registration {regContests?.length}</h2>
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
                 {
                     withoutDuplacate?.map(contest => <ContestCard key={contest._id} contest={contest}></ContestCard>)
                 }

@@ -45,10 +45,12 @@ const DashboardLayout = () => {
     </>
 
 
+
     return (
         <div className='max-w-7xl mx-auto flex'>
             {/* Dashboard sidebar */}
-            <div className='min-h-screen bg-[#a0bdfcd8] flex flex-col lg:w-1/3'>
+
+            <div className='min-h-screen bg-[#a0bdfcd8] md:flex flex-col md:w-1/3 hidden '>
                 <Link className='my-5 px-4' to={'/'}><img src={Logo} /></Link>
                 <Link className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2 text-black' to={'/dashboard'}>Dashboard</Link>
                 {
@@ -57,12 +59,24 @@ const DashboardLayout = () => {
                 <Link className='mx-2 text-black'><button className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg w-full text-left ' onClick={handleLogout}>Logout</button></Link>
             </div>
             {/* dashboard content */}
-            <div className='w-full pl-5 mt-20'>
+            <div className='w-full pl-5'>
+                <div className='flex items-center'>
+                    <div className="dropdown">
+                        <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                        </div>
+                        <div tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[20] p-2 shadow bg-base-100 rounded-box w-52">
+                            <Link className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2 text-black' to={'/dashboard'}>Dashboard</Link>
+                            {
+                                admin ? adminLinks : creator ? creatorLinks : userLinks
+                            }
+                            <Link className='mx-2 text-black'><button className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg w-full text-left ' onClick={handleLogout}>Logout</button></Link>
+                        </div>
+                    </div>
+                    <Link className='my-5 md:hidden w-full' to={'/'}><img src={Logo} /></Link>
+                </div>
                 <Outlet></Outlet>
-
             </div>
-
-
         </div>
     );
 };

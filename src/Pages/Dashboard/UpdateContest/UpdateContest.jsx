@@ -62,7 +62,7 @@ const UpdateContest = () => {
     }
 
     return (
-        <div className="bg-[#D6EAFF] p-20 rounded-lg">
+        <div className="bg-[#D6EAFF] md:p-10 p-5  rounded-lg">
             <h2 className="text-5xl font-bold text-center pb-10">Update Contest</h2>
             <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex gap-5">

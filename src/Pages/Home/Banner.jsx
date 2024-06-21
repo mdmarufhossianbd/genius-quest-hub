@@ -32,10 +32,10 @@ const Banner = () => {
 
 
     return (
-        <div>
-            <div className='flex gap-5 bg-[#a0bdfc9a]'>
+        <div className=''>
+            <div className='flex md:flex-row flex-col-reverse gap-5 bg-[#a0bdfc9a]'>
                 <div className='flex flex-col justify-center p-5'>
-                    <h2 className='text-2xl'>Unleash Your Creativity! Join Our Exciting Contests Today.</h2>
+                    <h2 className='text-3xl text-center my-5'>Unleash Your Creativity! Join Our Exciting Contests Today.</h2>
                     <h2 className='text-5xl font-semibold text-center text-[#000000d5]'>
                         <Typewriter
                             cursor
@@ -57,13 +57,13 @@ const Banner = () => {
                         />
                     </h2>
                     <div className='my-2 text-center'>
-                        <form onSubmit={handleSearch} >
+                        <form className='flex' onSubmit={handleSearch} >
                             <input className='w-[70%] p-3 rounded-l-md' type="text" name="search" placeholder='Type here which contest your want to join' />
                             <input className='py-3 px-10 rounded-r-md bg-[#dc2626] text-white hover:cursor-pointer' type="submit" value="Search" />
                         </form>
                     </div>
                 </div>
-                <div className='w-1/2 p-20 rounded'>
+                <div className='md:w-1/2 w-full lg:p-20 md:p-12 p-10 rounded'>
                     <Swiper
                         slidesPerView={2}
                         spaceBetween={30}
@@ -89,7 +89,7 @@ const Banner = () => {
             {
              searchKW === '' ? '' :  <h2 className='text-center font-semibold text-3xl text-[#000000d5] bg-[#a0bdfc9a]'>{queryContest.length === 0 ? `sorry not found any contest for ${searchKW}` : `Search result for ${searchKW}`}</h2>
             }
-            <div className='bg-[#a0bdfc9a] grid grid-cols-2 gap-5 p-5'>                
+            <div className='bg-[#a0bdfc9a] grid md:grid-cols-2 grid-cols-1 gap-5 p-5'>                
                 {
                     searchKW === '' ? '' : queryContest.map(contest => <ContestCard key={contest._id} contest={contest}></ContestCard>)
                 }

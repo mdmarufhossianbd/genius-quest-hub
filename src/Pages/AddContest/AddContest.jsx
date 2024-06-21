@@ -68,7 +68,7 @@ const AddContest = () => {
     }
 
     return (
-        <div className="w-full mx-auto my-20 p-20 rounded-lg bg-[#D6EAFF] text-[#0F0F0F]">
+        <div className="w-full mx-auto md:my-20 md:p-10 p-5 rounded-lg bg-[#D6EAFF] text-[#0F0F0F]">
             <Helmet><title>Add contest || Genius Quest Hub</title></Helmet>
             <h2 className="text-5xl font-bold text-center pb-10">Add Contest</h2>
             <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
