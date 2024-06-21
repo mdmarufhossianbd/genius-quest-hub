@@ -5,9 +5,9 @@ import useContest from '../../Hooks/useContest';
 import { Autoplay, Pagination } from 'swiper/modules';
 const BestCreators = () => {
     const [contests, isLoading] = useContest();
-    // Step 1: Group contests by creator
+    
+    // Group contests by creator
     const creators = {};
-
     contests.forEach(contest => {
         const email = contest.creatorEmail;
         if (!creators[email]) {
@@ -20,17 +20,8 @@ const BestCreators = () => {
         creators[email].contests.push(contest);
     });
 
-    // Step 2: Filter creators with at least 3 contests
+    // Filter creators with at least 3 contests
     const bestCreators = Object.values(creators).filter(creator => creator.contests.length >= 3);
-    console.log(bestCreators);
-    // Step 3: Log or use the filtered creators
-    const creatorsEmails = bestCreators.map(item => item.creatorEmail)
-    console.log(creatorsEmails);
-    const creatorEmail = creatorsEmails.map(email => email);
-    console.log(creatorEmail);
-    const bestCreator = bestCreators.map(item => item.contests.slice(0, 3).map(contest => contest))
-    console.log(bestCreator);
-
 
     if (isLoading) {
         return <div className="flex justify-center items-center min-h-screen">

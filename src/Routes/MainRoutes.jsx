@@ -23,6 +23,7 @@ import AdminRoute from "./AdminRoute";
 import CreatorRoute from "./CreatorRoute";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import MyWinning from "../Pages/Dashboard/MyWinning/MyWinning";
 
 const router = createBrowserRouter([
     {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
                 path: '/dashboard/contest-submision/:id',
                 element: <SubmitContestFrom></SubmitContestFrom>,
                 // loader: ({params})=>fetch(`http://localhost:5000/registered-contests/${params.id}`)
+            },
+            {
+                path: '/dashboard/my-winning-contest',
+                element: <PrivateRoute><MyWinning></MyWinning></PrivateRoute>
             },
             // creator
             {
