@@ -16,7 +16,7 @@ const ContestDetails = () => {
     const { contestContestType, contestDeadline, contestDescription, contestImage, contestInstructions, contestName, contestParticipateCount, contestPrize, contestPublishDate, contestRegistrationFee, creatorEmail, creatorName, _id } = contest;
     const [allUser, isLoading] = useAllUser();
     const userEmail = user?.email;
-    const loginUser = allUser.find(user => user?.email === userEmail)
+    const loginUser = allUser?.find(user => user?.email === userEmail)
 
     // timer for registration expried date.
     const formateDeadline = new Date(contestDeadline);
@@ -46,7 +46,7 @@ const ContestDetails = () => {
         </div>
     }
 
-    const match = regContest.find(item => item.contestId === _id && item.userEmail === user?.email)
+    const match = regContest?.find(item => item.contestId === _id && item.userEmail === user?.email)
     const handleReg = () => {
         if (user.email === creatorEmail) {
             return toast.error('You can not particapate because you are owner of this contest.')

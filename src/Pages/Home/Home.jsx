@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Banner from "./Banner";
 import PopularContest from "./PopularContest";
+import ContestWinner from "./ContestWinner";
 
 const Home = () => {
     return (
@@ -8,10 +9,9 @@ const Home = () => {
             <Helmet>
                 <title>Home || Genius Quest Hub</title>
             </Helmet>
-            {/* banner */}
            <Banner></Banner>
-           {/* Popular */}
            <PopularContest></PopularContest>
+           <ContestWinner></ContestWinner>
         </div>
     );
 };
