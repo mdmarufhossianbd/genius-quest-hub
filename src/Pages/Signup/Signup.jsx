@@ -75,11 +75,11 @@ const Signup = () => {
     return (
         <div className="max-w-7xl mx-auto mt-20">
             <Helmet><title>Signup || Genius Quest Hub</title></Helmet>
-            <div className="flex items-center border-2 p-10 rounded-lg">
-                <div className="w-1/2">
+            <div className="flex md:flex-row flex-col items-center border-2 p-10 rounded-lg m-2">
+                <div className="md:w-1/2 w-full">
                     <img src={signUpImg} alt="" />
                 </div>
-                <div className="flex flex-col w-1/2 p-10 bg-[#a0bdfc] rounded-lg text-black">
+                <div className="flex flex-col md:w-1/2 w-full p-10 bg-[#a0bdfc] rounded-lg text-black">
                     <h2 className="text-5xl font-semibold mb-10 text-center">Sign Up</h2>
                     <form className="flex flex-col space-y-3" onSubmit={handleSubmit(onSubmit)}>
                         <label className="text-xl font-medium">Your Full Name <span className="text-red-700">*</span></label>
