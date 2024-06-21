@@ -9,7 +9,6 @@ const Profile = () => {
     const [users, userLoading] = useUsers();
     const axiosPublic = useAxiosPublic()
     const { user, updateUserProfile, setReload } = useAuth();
-    console.log(user,);
     const { register, handleSubmit, resetField, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {

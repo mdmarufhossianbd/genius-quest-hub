@@ -77,10 +77,10 @@ const Banner = () => {
                         modules={[Pagination, Autoplay]}
                         className="mySwiper"
                     >
-                        <SwiperSlide><img className='rounded' src={slider1} alt="" /></SwiperSlide>
-                        <SwiperSlide><img className='rounded' src={slider2} alt="" /></SwiperSlide>
-                        <SwiperSlide><img className='rounded' src={slider3} alt="" /></SwiperSlide>
-                        <SwiperSlide><img className='rounded' src={slider4} alt="" /></SwiperSlide>
+                        <SwiperSlide><img className='rounded' src={slider1}/></SwiperSlide>
+                        <SwiperSlide><img className='rounded' src={slider2}/></SwiperSlide>
+                        <SwiperSlide><img className='rounded' src={slider3}/></SwiperSlide>
+                        <SwiperSlide><img className='rounded' src={slider4}/></SwiperSlide>
 
                     </Swiper>
                 </div>
