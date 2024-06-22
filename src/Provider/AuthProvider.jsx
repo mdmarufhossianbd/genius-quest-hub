@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
         return () => {
             return unSubscribe
         }
-    },[reload])
+    },[reload, user])
 
     const authInfo = {
         signUp,
