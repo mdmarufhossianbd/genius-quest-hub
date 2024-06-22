@@ -24,6 +24,7 @@ const Profile = () => {
                 setReload(true);
                 const profileInfoUpdate = {
                     name: data.name,
+                    photo
                 }
                 axiosPublic.put(`/update-user/${users._id}`, profileInfoUpdate)
                 resetField('name', 'photo')

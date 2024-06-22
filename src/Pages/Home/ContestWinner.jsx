@@ -34,26 +34,24 @@ const ContestWinner = () => {
     const winner = Object.entries(emailCounts)
         .filter(([email, data]) => data.count > 1)
         .map(([email, data]) => ({ userEmail: email, userName: data.userName }));
-    
     // winner total reg contest.
     const winnerRegContests = regContest.filter(item => item.userEmail === winner[0]?.userEmail);
 
     return (
         <div className="flex flex-col items-center text-center p-20 bg-gray-300 rounded-lg max-w-7xl mx-auto my-20">
-           
-            <h1 className="text-gray-800 text-5xl mb-8 font-semibold">Participate and Win Big! </h1>
+            <h1 className="text-gray-800 md:text-5xl text-3xl mb-8 font-semibold">Participate and Win Big! </h1>
             <div className="bg-white rounded-lg p-6 shadow-md w-full mb-8">
                 <h2 className="font-sans text-blue-500 text-3xl mb-4 font-semibold">🥇 Contest Winner 🥇</h2>
                 <img src={winnerImg} alt="Winner" className="rounded-full mb-4 w-52 h-52 mx-auto" />
                 <p className="font-sans text-gray-600 text-lg">Congratulations to <strong>{winner[0]?.userName}</strong> for winning the latest contest with an outstanding entry!</p>
             </div>
 
-            <div className="flex justify-around w-full mb-8">
-                <div className="bg-blue-500 text-white p-6 rounded-lg w-1/3 shadow-md">
+            <div className="flex md:justify-around md:flex-row gap-5 md:gap-0 flex-col w-full mb-8">
+                <div className="bg-blue-500 text-white p-6 rounded-lg md:w-1/3 w-full shadow-md">
                     <h3 className="font-sans text-2xl">Total Participants</h3>
                     <p className="font-sans text-xl">{winnerRegContests.length}</p>
                 </div>
-                <div className="bg-green-500 text-white p-6 rounded-lg w-1/3 shadow-md">
+                <div className="bg-green-500 text-white p-6 rounded-lg md:w-1/3 w-full shadow-md">
                     <h3 className="font-sans text-2xl">Total Contests Won</h3>
                     <p className="font-sans text-xl">{totalWinContest(winnerContest)}</p>
                 </div>

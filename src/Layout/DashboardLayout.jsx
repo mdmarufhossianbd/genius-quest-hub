@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import useAdmin from '../Hooks/useAdmin';
 import useAuth from '../Hooks/useAuth';
 import useCreator from '../Hooks/useCreator';
@@ -22,9 +22,9 @@ const DashboardLayout = () => {
 
     const userLinks = <>
         <li className='flex flex-col text-black'>
-            <Link className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/dashboard/my-registered-contest'}>My Registered Contest</Link>
-            <Link className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/dashboard/my-winning-contest'}>My Winning Contest</Link>
-            <Link className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/dashboard/profile'}>My Profile</Link>
+            <NavLink className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/dashboard/my-registered-contest'}>My Registered Contest</NavLink>
+            <NavLink className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/dashboard/my-winning-contest'}>My Winning Contest</NavLink>
+            <NavLink className='hover:bg-[#2b2b2bb7] hover:text-[#fff] px-5 py-2 rounded-lg mx-2' to={'/dashboard/profile'}>My Profile</NavLink>
 
         </li>
     </>

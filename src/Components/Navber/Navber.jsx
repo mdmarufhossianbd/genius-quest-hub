@@ -28,14 +28,13 @@ const Navber = () => {
     const navlinks = <>
         <Link className="hover:text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/'}>Home</Link>
         <Link className="hover:text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/contest'}>Contest</Link>
-        <Link className="hover:text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/add-job'}>Add Jobs</Link>
-        <Link className="hover:text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/blog'}>Blog</Link>
+        <Link className="hover:text-white font-semibold hover:bg-[#2b2b2b] hover:px-3 hover:py-2 rounded px-3 py-2" to={'/contest-winners'}>Contest Winners</Link>
     </>
 
     const userLinks = <>
         <li>
             <Link to={'/dashboard'}>Dashboard</Link>
-            <Link to={'/profile'}>Profile</Link>
+            <Link to={'/dashboard/profile'}>Profile</Link>
         </li>
     </>
 

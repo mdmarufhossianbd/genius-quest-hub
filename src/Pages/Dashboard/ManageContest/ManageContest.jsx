@@ -75,7 +75,6 @@ const ManageContest = () => {
 
     return (
         <div>
-            <h2>Total Conteste {contests.length}</h2>
             <table className="table">
                 {/* head */}
                 <thead>

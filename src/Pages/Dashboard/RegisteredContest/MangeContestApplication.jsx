@@ -27,7 +27,7 @@ const MangeContestApplication = () => {
                 <h2 className='text-3xl text-center my-5'>Contest Submition details</h2>
                 <div>
                     {
-                        totalReg.map(participate => <ParticipateCard key={participate._id} participate={participate}></ParticipateCard>)
+                        totalReg.map(participate => <ParticipateCard key={participate._id} participate={participate} user={user}></ParticipateCard>)
                     }
                 </div>
             </div>

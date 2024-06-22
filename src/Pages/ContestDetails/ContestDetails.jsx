@@ -8,6 +8,7 @@ import useAllUser from "../../Hooks/useAllUser";
 
 const ContestDetails = () => {
     const contest = useLoaderData();
+    console.log(contest);
     const [resBtnDisabled, setResBtnDisabled] = useState(false);
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();

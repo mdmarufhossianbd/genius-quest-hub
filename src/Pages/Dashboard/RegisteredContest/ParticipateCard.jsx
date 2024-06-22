@@ -3,12 +3,12 @@ import useSubmit from "../../../Hooks/useSubmit";
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import toast, { Toaster } from 'react-hot-toast';
 import useWinner from '../../../Hooks/useWinner';
-const ParticipateCard = ({ participate }) => {
+const ParticipateCard = ({ participate, user}) => {
     const axiosSecure = useAxiosSecure();
     const [submitContests] = useSubmit();
     const [winnerContest, refetch] = useWinner();
-    const { contestId, contestImage, contestName, contestPrize, contestRegistrationFee, creatorEmail, creatorName, regDate, transactionId, userEmail, userName, contestType } = participate;
-
+    const { contestId, contestImage, contestName, contestPrize, contestRegistrationFee, creatorEmail, creatorName, regDate, transactionId, userEmail, userName, contestType } = participate;    
+    const userPhoto = user?.photoURL;
     const userSubmitContest = submitContests?.filter(item => item.submitContestId === contestId);
     const winner = winnerContest.find( contest => contest.contestId === contestId);
     const matchedWinner = winner ? winner.contestId === contestId : null
@@ -23,7 +23,7 @@ const ParticipateCard = ({ participate }) => {
                 creatorEmail, creatorName
             },
             applicant: {
-                userName, userEmail
+                userName, userEmail, userPhoto
             }
         }
         const confirmWinner = await axiosSecure.post('/contest-winner', winner)
@@ -62,5 +62,6 @@ const ParticipateCard = ({ participate }) => {
 };
 ParticipateCard.propTypes = {
     participate: PropTypes.object,
+    user: PropTypes.object,
 }
 export default ParticipateCard;

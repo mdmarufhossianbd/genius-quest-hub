@@ -24,6 +24,7 @@ import CreatorRoute from "./CreatorRoute";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import MyWinning from "../Pages/Dashboard/MyWinning/MyWinning";
+import ContestWinner from "../Pages/ContestWinner/ContestWinner";
 
 const router = createBrowserRouter([
     {
@@ -49,12 +50,16 @@ const router = createBrowserRouter([
             },
             {
                 path: '/contest/details/:id',
-                element: <ContestDetails></ContestDetails>,
+                element: <PrivateRoute><ContestDetails></ContestDetails></PrivateRoute>,
                 loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
             },
             {
                 path: '/payment',
                 element: <Payment></Payment>
+            },
+            {
+                path: '/contest-winners',
+                element: <ContestWinner></ContestWinner>
             }
         ]
     },

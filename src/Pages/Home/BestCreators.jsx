@@ -14,6 +14,7 @@ const BestCreators = () => {
             creators[email] = {
                 creatorEmail: contest.creatorEmail,
                 creatorName: contest.creatorName,
+                creatorPhoto: contest.creatorPhoto,
                 contests: []
             };
         }
@@ -35,7 +36,7 @@ const BestCreators = () => {
             </div>
             <div>
                 <Swiper
-                    slidesPerView={1}
+                    slidesPerView={2}
                     spaceBetween={30}
                     loop={true}
                     autoplay={{
@@ -51,11 +52,12 @@ const BestCreators = () => {
                         bestCreators.map(creator => <SwiperSlide key={creator.creatorEmail} className=' p-4 bg-[#D7D7FF] rounded' >
                             <div className='flex gap-5'>
                                 <div>
-                                    <img className='rounded-md' src="https://via.placeholder.com/150" alt="" />
+                                    <img className='rounded-md' src={creator.creatorPhoto} />
                                 </div>
                                 <div className='flex flex-col'>
+                                    <h2 className='text-xl font-semibold border-b border-green-500 w-full pb-2 mb-2'>Popular Contest</h2>
                                     {
-                                        creator.contests.slice(0, 3).map(contest => <p key={contest._id} className='border-b-2 border-green-600 rounded-md py-2'>{contest.contestName}</p>)
+                                        creator.contests.slice(0, 3).map(contest => <p key={contest._id} className='border-b-2 border-green-600 rounded-md py-2 hover:border-none'>{contest.contestName}</p>)
                                     }
                                 </div>
                             </div>

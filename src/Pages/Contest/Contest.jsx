@@ -55,14 +55,14 @@ const Contest = () => {
 
 
     return (
-        <div className="max-w-7xl mx-auto py-20">
-            <h2>All Contest</h2>
+        <div className="max-w-7xl mx-auto pt-20">
+            <h2 className="text-center text-3xl font-semibold md:text-5xl md:mb-20 mb-10">All Contest</h2>
             <div className="grid md:grid-cols-2 gap-5">
                 {
                     publishContest.map(contest => <ContestCart key={contest._id} contest={contest} ></ContestCart>)
                 }
             </div>
-            <div className="text-center py-5">
+            <div className="text-center py-5 mt-5 space-x-2">
                 <button onClick={handlePrev} className="btn">Prev</button>
                 {
                     pages.map(page => <button key={page} onClick={() => handlePagination(page)}

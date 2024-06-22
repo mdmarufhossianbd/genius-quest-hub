@@ -9,7 +9,7 @@ const Footer = () => {
     return (
         <div>
             <div>
-                <footer className="footer p-10 bg-base-200 text-base-content">
+                <footer className="footer gap-5 p-10 bg-base-200 text-base-content">
                     <div className='w-64'>
                         <Link to={'/'}><img className='w-60' src={logo} alt="" /></Link>
                         <p className='text-center'>Genius Quest Hub is a biggest online contest particapate platfrom.</p>
@@ -36,7 +36,6 @@ const Footer = () => {
                         <a className="link link-hover flex items-center justify-center gap-2"><FaInstagram/>Instagram</a>
                         <a className="link link-hover flex items-center justify-center gap-2"><FaYoutube/>Youtube</a>
                     </nav>
-
                 </footer>
             </div>
             <div className="footer-center p-4 bg-gradient-to-r from-[#7D2AE8] via-purple-500 to-[#05A659]">

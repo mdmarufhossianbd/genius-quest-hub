@@ -51,7 +51,8 @@ const Signup = () => {
                         if (result.user) {
                             const userInfo = {
                                 name : data.name,
-                                email : data.email
+                                email : data.email,
+                                photo
                             }
                             axiosPublic.post('/users', userInfo)
                             toast.success('Your account Create Successfully')
