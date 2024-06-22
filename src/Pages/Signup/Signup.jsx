@@ -44,7 +44,6 @@ const Signup = () => {
         // account create
         await signUp(data.email, data.password)
             .then(result => {
-                console.log(result.user);
                 // update profile
                 updateUserProfile(data.name, photo, data.email)
                     .then(() => {

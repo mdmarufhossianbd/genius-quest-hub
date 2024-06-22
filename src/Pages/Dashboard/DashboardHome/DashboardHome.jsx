@@ -10,7 +10,6 @@ const DashboardHome = () => {
     const userWinnerContest = winnerContest.filter(wcontest => wcontest?.applicant?.userEmail === user.email);
     const totalWinCount = (userWinnerContest.length / userRegContest.length) * 100
     const winnerContests = winnerContest.filter(contest => contest?.applicant?.userEmail === user.email)
-    console.log(totalWinCount);
     if (isLoading) {
         return <div className="flex justify-center items-center min-h-screen">
             <span className=" loading loading-dots loading-lg"></span>

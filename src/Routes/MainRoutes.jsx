@@ -51,7 +51,7 @@ const router = createBrowserRouter([
             {
                 path: '/contest/details/:id',
                 element: <PrivateRoute><ContestDetails></ContestDetails></PrivateRoute>,
-                loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
+                loader: ({params})=>fetch(`https://genius-quest-hub-server.vercel.app/contests/${params.id}`)
             },
             {
                 path: '/payment',
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/contest-preview/:id',
                 element: <PrivateRoute><ContestView></ContestView></PrivateRoute>,
-                loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
+                loader: ({params})=>fetch(`https://genius-quest-hub-server.vercel.app/contests/${params.id}`)
             },
             {
                 path: '/dashboard/my-registered-contest',
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/contest-submision/:id',
                 element: <SubmitContestFrom></SubmitContestFrom>,
-                // loader: ({params})=>fetch(`http://localhost:5000/registered-contests/${params.id}`)
+                // loader: ({params})=>fetch(`https://genius-quest-hub-server.vercel.app/registered-contests/${params.id}`)
             },
             {
                 path: '/dashboard/my-winning-contest',
@@ -101,7 +101,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/update-contest/:id',
                 element: <CreatorRoute><UpdateContest></UpdateContest></CreatorRoute>,
-                loader: ({params})=>fetch(`http://localhost:5000/contests/${params.id}`)
+                loader: ({params})=>fetch(`https://genius-quest-hub-server.vercel.app/contests/${params.id}`)
             },
             {
                 path: '/dashboard/registered-contest',
@@ -110,7 +110,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/mange-contest-application/:id',
                 element: <CreatorRoute><MangeContestApplication></MangeContestApplication></CreatorRoute>,
-                loader: ({params})=>fetch(`http://localhost:5000/registered-contests/${params.id}`)
+                loader: ({params})=>fetch(`https://genius-quest-hub-server.vercel.app/registered-contests/${params.id}`)
             },
             // admin
             {

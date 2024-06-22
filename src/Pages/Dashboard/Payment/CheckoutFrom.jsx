@@ -52,7 +52,6 @@ const CheckoutFrom = () => {
         })
         if (error) {
             setError(error.message)
-            console.log(error);
         } else {
             setError('')
             console.log(paymentMethod);
@@ -71,8 +70,7 @@ const CheckoutFrom = () => {
 
         if (confirmError) {
             console.log('confirm error', confirmError);
-        } else {
-            console.log('paymentIntent', paymentIntent);
+        } else {            
             if (paymentIntent.status === 'succeeded') {
                 const paymentInfo = {
                     contestId, contestDeadline, contestImage, contestName, contestPrize, contestPublishDate, contestRegistrationFee, creatorEmail, creatorName, 

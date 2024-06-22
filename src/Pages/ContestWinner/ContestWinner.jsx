@@ -3,17 +3,13 @@ import useWinner from "../../Hooks/useWinner";
 
 const ContestWinner = () => {
     const [winnerContest, isLoading] = useWinner();
-    console.log(winnerContest);
     const winners = winnerContest.map( item => item.applicant)
-    console.log(winners);
-
     const skipDuplucateWinners = winners.reduce((acc, current) => {
         if (!acc.some(user => user?.userEmail === current?.userEmail)) {
             acc.push(current);
         }
         return acc;
     }, []);
-    console.log(skipDuplucateWinners);
     if (isLoading) {
         return <div className="flex justify-center items-center min-h-screen">
             <span className=" loading loading-dots loading-lg"></span>

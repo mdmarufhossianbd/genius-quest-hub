@@ -15,8 +15,6 @@ const SubmitContestFrom = () => {
     const queryParams = new URLSearchParams(location.search);
     const contestId = queryParams.get('contestId');
 
-    console.log(contestId);
-
     const onSubmit = async (data) => {
         // image upload
         const imgFile = { image: data.image[0] }

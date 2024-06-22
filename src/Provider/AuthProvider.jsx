@@ -47,14 +47,14 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
             // if user exists then issue a token
             if(currentUser){               
-                axios.post('http://localhost:5000/jwt',loggedUser, {withCredentials : true})
-                .then(res => console.log('token response', res.data))
+                axios.post('https://genius-quest-hub-server.vercel.app/jwt',loggedUser, {withCredentials : true})
+                .then(res => res.data)
             }
             else{
-                axios.post('http://localhost:5000/logout', loggedUser, {
+                axios.post('https://genius-quest-hub-server.vercel.app/logout', loggedUser, {
                     withCredentials : true
                 })
-                .then(res => console.log(res.data))
+                .then(res => res.data)
             }
         })
         return () => {

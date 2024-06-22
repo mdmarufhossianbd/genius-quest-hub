@@ -10,7 +10,7 @@ const Contest = () => {
     const [contestCount, setContestCount] = useState(0);
 
     useEffect(() => {
-        fetch('http://localhost:5000/total-contest')
+        fetch('https://genius-quest-hub-server.vercel.app/total-contest')
             .then(res => res.json())
             .then(data => {
                 setContestCount(data.count)

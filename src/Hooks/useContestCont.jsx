@@ -7,7 +7,7 @@ const useContestCont = () => {
         queryKey: ['contestCount'],
         queryFn: async () => {
             const res = await axiosPublic.get('/total-contest')
-            console.log(res.data);
+           
             return res.data;
         }
     });

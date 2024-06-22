@@ -56,10 +56,6 @@ const ManageContest = () => {
                     form.reset();
                 }
             })
-            .catch((error) => {
-                console.log(error);
-            });
-
     }
 
     // publish contest
