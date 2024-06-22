@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://genius-quest-hub-server.vercel.app',
     withCredentials: true
 })
 const useAxiosSecure = () => {
@@ -35,8 +35,6 @@ const useAxiosSecure = () => {
         }
         return Promise.reject(error);
     })
-
-
     return axiosSecure;
 };
 
