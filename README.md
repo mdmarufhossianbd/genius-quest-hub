@@ -2,7 +2,7 @@
 
 Genius Quest Hub is an online platform designed for hosting and participating in a variety of contests. Whether you're looking to test your skills, challenge yourself with new and exciting competitions, or simply have fun, Genius Quest Hub provides a user-friendly interface for participants to engage in contests across multiple domains.
 # Server Repo :
-[Genius Quest Server](https://github.com/mdmarufhossianbd/genius-quest-hub-server.git)
+[Genius Quest Backend](https://github.com/mdmarufhossianbd/genius-quest-hub-backend.git)
 # live Link
 Live link : [Genius Quest Hub](https://luminous-dusk-9dec82.netlify.app/)
 # Start Guide
