@@ -1,19 +1,35 @@
 # Genius Quest Hub Frontend
-Live link : [Genius Quest Hub](https://genius-quest-hub.web.app/)
 
 Genius Quest Hub is an online platform designed for hosting and participating in a variety of contests. Whether you're looking to test your skills, challenge yourself with new and exciting competitions, or simply have fun, Genius Quest Hub provides a user-friendly interface for participants to engage in contests across multiple domains.
+# Server Repo :
+[Genius Quest Server](https://github.com/mdmarufhossianbd/genius-quest-hub-server.git)
+# live Link
+Live link : [Genius Quest Hub](https://luminous-dusk-9dec82.netlify.app/)
 # Start Guide
-## step one
+For run this project must be need to have installed nodejs in your machine.
+## step 1
 ```
-git clone https://github.com/programming-hero-web-course1/b9a12-client-side-mdmarufhossianbd.git
+git clone https://github.com/mdmarufhossianbd/genius-quest-hub-client.git
 ```
-## step two
+## step 2
 ```
 npm install
 ```
-## step two
+## step 3
 ```
 npm run dev
+```
+## step 4
+setup .env.local and create this file in the root folder in this project.
+```
+VITE_APIKEY=FIREBASE_APIKEY
+VITE_AUTHDOMAIN=FIREBASE_AUTHDOMAIN
+VITE_PROJECTID=FIREBASE_PROJECTID
+VITE_STORAGEBUCKET=FIREBASE_STORAGEBUCKET
+VITE_MESSAGINGSENDERID=FIREBASE_MESSAGINGSENDERID
+VITE_APPID=FIREBASE_APPID
+VITE_IMAGE_HOSTING_KEY=FIREBASE_IMAGE_HOSTING_KEY
+VITE_Payment_Gateway_Key=Payment_Gateway_Key_Here
 ```
 # Technologies Used
 - tanstack/react-query
@@ -35,9 +51,3 @@ npm run dev
 - Real-Time Participation: Join contests in real-time and see live updates on your progress.
 - Leaderboards and Achievements: Track your performance, compete with others, and earn badges and rewards for your achievements.
 - Secure and Reliable: Robust security measures to protect user data and ensure fair play.
-
-# Contributing
-Contributions are welcome! Please fork this repository and submit a pull request for any enhancements or bug fixes. Before making any changes, please open an issue to discuss what you would like to contribute.
-
-# License
-This project is licensed under the MIT License. See the LICENSE file for details.
